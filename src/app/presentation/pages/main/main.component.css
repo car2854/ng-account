@@ -1,0 +1,84 @@
+.page{
+  display: flex;
+}
+
+.page .icon{
+  color: var(--text-secondary);
+}
+
+
+.no-sidebar{
+  flex: 1;
+  padding: 35px;
+}
+
+/* Navbar */
+
+
+/* Component */
+.no-sidebar .component{
+  padding-block: 30px;
+}
+
+/* Sidebar */
+.sidebar{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 250px;
+  background-color: var(--surface);
+  height: 100vh;
+  box-sizing: border-box;
+  padding-inline: 30px;
+  padding-block: 40px;
+}
+
+.sidebar .options{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sidebar .options h5{
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  font-weight: bold;
+  padding-bottom: 8px;
+}
+
+ul{
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+ul li{
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+  padding-inline: 12px;
+  padding-block: 8px;
+  border-radius: 12px;
+}
+
+.settings{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+a{
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  color: var(--text-secondary);
+  gap: 8px;
+}
+
+.active{
+  background-color: #F3F3FE;
+}
+

@@ -1,0 +1,29 @@
+<div class="page">
+  <div class="sidebar">
+    <div class="options">
+      <h5>Main Menu</h5>
+      <ul>
+        <li routerLinkActive="active" [routerLink]="['/dashboard']"><lucide-angular [img]="HouseIcon" class="icon"></lucide-angular>Dashboard</li>
+        <li routerLinkActive="active" [routerLink]="['/users']"><lucide-angular [img]="UsersIcon" class="icon"></lucide-angular>Users</li>
+        <li routerLinkActive="active" [routerLink]="['/accounts']"><lucide-angular [img]="BookMinusIcon" class="icon"></lucide-angular>Accounts</li>
+      </ul>
+    </div>
+    <div class="settings">
+      <a><lucide-angular [img]="SettingsIcon" class="icon"></lucide-angular>
+        Settings
+      </a>
+      <a [routerLink]="['/auth/login']"><lucide-angular
+        [img]="LogInIcon" class="icon"></lucide-angular>
+        Log in
+      </a>
+    </div>
+  </div>
+  <div class="no-sidebar">
+    <div class="navbar">
+      <h1>Analytics</h1>
+    </div>
+    <div class="component">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

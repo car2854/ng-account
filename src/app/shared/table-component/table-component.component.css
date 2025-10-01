@@ -1,0 +1,16 @@
+table{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table thead tr th{
+  padding-block: 18px;
+  color: var(--text-secondary);
+  text-align: start;
+}
+
+
+th, td{
+  border-bottom: 1px solid var(--text-secondary-25);
+  padding: 8px;
+}

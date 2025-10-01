@@ -1,0 +1,39 @@
+/* https://dribbble.com/shots/20836166-Veritas-Admin-Dashboard-Analytics-UX */
+
+*{
+  padding: 0px;
+  margin: 0px;
+}
+
+body{
+  font-family: 'Montserrat', sans-serif;
+  color: #222;
+  background-color: var(--background);
+}
+
+/* Button */
+button{
+  all: unset;
+  display: inline-block;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+a{
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+hr{
+  border: none;
+  height: 1px;
+  background-color: var(--text-secondary);
+  opacity: 0.3;
+  margin: 20px 0 20px 0;
+  border-radius: 50px;
+}

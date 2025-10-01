@@ -1,0 +1,15 @@
+<app-card title="Register">
+  <div card-body>
+    <form action="">
+
+      <app-form-input label="Name" type="text" placeholder="Name"></app-form-input>
+      <app-form-input label="Email" placeholder="Email"></app-form-input>
+      <app-form-input label="Password" type="password" placeholder="Password"></app-form-input>
+
+      <app-button label="Register" [onClick]="register"></app-button>
+
+      <p [routerLink]="['/auth/login']">Already hace an account? <a>Log in here.</a></p>
+
+    </form>
+  </div>
+</app-card>

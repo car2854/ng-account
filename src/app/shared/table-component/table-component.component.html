@@ -1,0 +1,19 @@
+<table>
+  <!-- <caption>Title table</caption> -->
+  <thead>
+    <tr>
+      @for (header of table.headers; track $index) {
+        <th>{{header}}</th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for (body of table.body; track $index) {
+      <tr>
+        @for (item of body; track $index) {
+          <td>{{item}}</td>
+        }
+      </tr>
+    }
+  </tbody>
+</table>

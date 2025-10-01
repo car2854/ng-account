@@ -1,0 +1,23 @@
+.form-group{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 8px;
+}
+
+label{
+  text-align: start;
+}
+
+input:placeholder-shown{
+  text-align: start;
+}
+
+input {
+  text-align: start !important;
+  all: unset;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--text-secondary);
+  /* box-sizing: border-box; */
+}

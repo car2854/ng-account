@@ -1,0 +1,13 @@
+.auth{
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.auth .content{
+  width: 450px;
+  text-align: center;
+}
+
