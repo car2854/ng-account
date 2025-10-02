@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { CardComponent } from "../../../../shared/card-component/card.component";
-import { TableComponentComponent, TableInterface } from "../../../../shared/table-component/table-component.component";
+import { CardComponent } from "../../../../../shared/card-component/card.component";
+import { TableComponentComponent, TableInterface } from "../../../../../shared/table-component/table-component.component";
+import { ButtonComponent } from "../../../../../shared/button-component/button.component";
+import { AComponentComponent } from "../../../../../shared/a-component/a-component.component";
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
-  imports: [CardComponent, TableComponentComponent],
+  imports: [CardComponent, TableComponentComponent, AComponentComponent],
 })
 export class UsersComponent implements OnInit {
   public table: TableInterface = {
