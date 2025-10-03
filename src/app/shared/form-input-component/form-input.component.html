@@ -1,4 +1,8 @@
 <div class="form-group">
   <label for="">{{label}}</label>
-  <input [type]="type" placeholder="{{placeholder}}">
+  @if (type == 'text-area') {
+    <textarea name="" id="" title="{label}" rows="6"></textarea>
+  } @else {
+    <input [type]="type" placeholder="{{placeholder}}">
+  }
 </div>

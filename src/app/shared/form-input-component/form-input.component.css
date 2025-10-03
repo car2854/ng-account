@@ -9,7 +9,16 @@ label{
   text-align: start;
 }
 
-input:placeholder-shown{
+textarea {
+  resize: none;
+  text-align: start !important;
+  all: unset;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--text-secondary);
+}
+
+input:placeholder-shown {
   text-align: start;
 }
 

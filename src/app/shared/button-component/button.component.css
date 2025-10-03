@@ -4,4 +4,5 @@ button{
   color: var(--primary-text-button);
   border-radius: 8px;
   padding: 10px;
+  font-weight: normal;
 }

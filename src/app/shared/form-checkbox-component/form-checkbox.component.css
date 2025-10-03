@@ -1,0 +1,14 @@
+.form-group{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+input[type="checkbox"]{
+  text-align: start !important;
+  all: unset;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid var(--text-secondary);
+  /* box-sizing: border-box; */
+}

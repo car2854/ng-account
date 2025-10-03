@@ -1,3 +1,29 @@
-<p>
-  account works!
-</p>
+<app-card title="Account data">
+
+  <div card-body>
+    <form action="">
+      <app-form-input
+        label="Title"
+        placeholder="Title"
+      ></app-form-input>
+
+      <app-form-input
+        label="Description"
+        placeholder="Description"
+        type="text-area"
+      ></app-form-input>
+
+      <app-form-checkbox
+        label="Active"
+      ></app-form-checkbox>
+
+      <div class="align-end">
+        <app-button
+          label="Save"
+          [onClick]="save"
+        ></app-button>
+      </div>
+    </form>
+  </div>
+
+</app-card>

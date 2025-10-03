@@ -1,3 +1,19 @@
-<p>
-  user works!
-</p>
+<app-card title="User data">
+
+  <div card-body>
+    <form action="">
+      <app-form-input
+        label="Name"
+        placeholder="Name"
+      ></app-form-input>
+
+      <div class="align-end">
+        <app-button
+          label="Save"
+          [onClick]="save"
+        ></app-button>
+      </div>
+    </form>
+  </div>
+
+</app-card>

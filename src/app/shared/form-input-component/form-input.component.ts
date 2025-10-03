@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-type InputType = 'text' | 'password' | 'email'
+type InputType = 'text' | 'password' | 'email' | 'text-area';
 
 @Component({
   selector: 'app-form-input',
