@@ -3,6 +3,6 @@
   @if (type == 'text-area') {
     <textarea name="" id="" title="{label}" rows="6"></textarea>
   } @else {
-    <input [type]="type" placeholder="{{placeholder}}">
+    <input [type]="type" placeholder="{{placeholder}}" (input)="onChange($event.target.value)">
   }
 </div>

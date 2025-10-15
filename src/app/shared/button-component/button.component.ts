@@ -1,18 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+type TypeButton = 'button' | 'reset' | 'submit';
+
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
-  styleUrls: ['./button.component.css']
+  styleUrls: ['./button.component.css'],
 })
 export class ButtonComponent implements OnInit {
+  @Input({ required: true }) label: string = '';
+  @Input() onClick: () => void = () => {};
+  @Input() type: TypeButton = 'submit';
 
-  @Input({required: true}) label : string = '';
-  @Input({required: true}) onClick!: () => void;
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

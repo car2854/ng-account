@@ -1,12 +1,21 @@
 <app-card title="Login">
   <div card-body>
-    <form action="">
+    <form action="" [formGroup]="form" (submit)="login()">
 
-      <app-form-input label="Email" placeholder="Email"></app-form-input>
+      <app-form-input
+        label="Email"
+        placeholder="Email"
+        formControlName="email"
+      ></app-form-input>
 
-      <app-form-input label="Password" type="password" placeholder="Password"></app-form-input>
+      <app-form-input
+        label="Password"
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+      ></app-form-input>
 
-      <app-button label="Login" [onClick]="login"></app-button>
+      <app-button label="{{(status() === Status.LOADING) ? 'Iniciando...' : 'Login'}}"></app-button>
 
       <p>Don't have an account? <a [routerLink]="['/auth/register']">Sign up here.</a></p>
 
