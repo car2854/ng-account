@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { LoginForm } from '../../../core/entities/login-form';
+import { RegisterForm } from '../../../core/entities/register-form';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/login`, loginForm);
   };
 
-  register = () => {
-    this.http.post(`${this.baseUrl}/login`, {});
+  register = (registerForm: RegisterForm) => {
+    return this.http.post(`${this.baseUrl}/register`, registerForm);
   };
 }

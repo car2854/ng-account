@@ -1,29 +1,30 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { buildLoginForm } from './login.form';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { FormInputComponent } from "../../../../shared/form-input-component/form-input.component";
-import { CardComponent } from "../../../../shared/card-component/card.component";
-import { ButtonComponent } from "../../../../shared/button-component/button.component";
+import { FormInputComponent } from "../../../../shared/components/form-input-component/form-input.component";
+import { CardComponent } from "../../../../shared/components/card-component/card.component";
+import { ButtonComponent } from "../../../../shared/components/button-component/button.component";
 import { RouterLink, Router } from '@angular/router';
 import { LoginUseCase } from '../../../../core/use-cases/auth/login.usecase';
 import { LoginForm } from '../../../../core/entities/login-form';
 import { mapFormToDto } from '../../../helpers/map-from-to-dto';
 import { Status } from '../../../enum/status-enum';
 import { HttpErrorResponse } from '@angular/common/http';
+import { IsLoadingPipe } from '../../../pipe/loading/is-loading.pipe';
+import { LoginFormBuilder } from './login.form';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [FormInputComponent, CardComponent, ButtonComponent, RouterLink, ReactiveFormsModule],
+  imports: [FormInputComponent, CardComponent, ButtonComponent, RouterLink, ReactiveFormsModule, IsLoadingPipe],
 })
 export class LoginComponent implements OnInit {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private loginUseCase = inject(LoginUseCase);
-  public form = buildLoginForm(this.fb);
+  private loginFormBuilder = inject(LoginFormBuilder);
+  public form = this.loginFormBuilder.build();
 
-  public Status = Status;
   public status = signal<Status>(Status.INITIAL);
 
   constructor() {}

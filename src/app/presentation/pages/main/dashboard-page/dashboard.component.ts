@@ -1,5 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { CardComponent } from "../../../../shared/card-component/card.component";
+import { CardComponent } from "../../../../shared/components/card-component/card.component";
 
 @Component({
   selector: 'app-dashboard',

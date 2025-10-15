@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CardComponent } from "../../../../../shared/card-component/card.component";
-import { TableComponentComponent, TableInterface } from "../../../../../shared/table-component/table-component.component";
-import { ButtonComponent } from "../../../../../shared/button-component/button.component";
-import { AComponentComponent } from "../../../../../shared/a-component/a-component.component";
+import { CardComponent } from "../../../../../shared/components/card-component/card.component";
+import { TableComponentComponent, TableInterface } from "../../../../../shared/components/table-component/table-component.component";
+import { ButtonComponent } from "../../../../../shared/components/button-component/button.component";
+import { AComponentComponent } from "../../../../../shared/components/a-component/a-component.component";
 
 @Component({
   selector: 'app-users',

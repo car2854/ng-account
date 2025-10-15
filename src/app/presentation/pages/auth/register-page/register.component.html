@@ -1,12 +1,26 @@
 <app-card title="Register">
   <div card-body>
-    <form action="">
+    <form action="" [formGroup]="form" (submit)="register()">
 
-      <app-form-input label="Name" type="text" placeholder="Name"></app-form-input>
-      <app-form-input label="Email" placeholder="Email"></app-form-input>
-      <app-form-input label="Password" type="password" placeholder="Password"></app-form-input>
+      <app-form-input
+        label="Name"
+        type="text"
+        placeholder="Name"
+        formControlName="name"
+        ></app-form-input>
+        <app-form-input
+        label="Email"
+        placeholder="Email"
+        formControlName="email"
+        ></app-form-input>
+        <app-form-input
+        label="Password"
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+      ></app-form-input>
 
-      <app-button label="Register" [onClick]="register"></app-button>
+      <app-button label="{{(status() | isLoading) ? 'Registrando...' : 'Register'}}" type="submit"></app-button>
 
       <p [routerLink]="['/auth/login']">Already hace an account? <a>Log in here.</a></p>
 
