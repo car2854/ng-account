@@ -26,7 +26,6 @@ export class RegisterComponent {
   public status = signal<Status>(Status.INITIAL);
 
   public register = () => {
-    console.log(this.form.value);
     if (this.form.invalid){
       return;
     }
@@ -36,8 +35,9 @@ export class RegisterComponent {
     this.registerUseCase.execute(dto).subscribe({
       error: (err: HttpErrorResponse) => {
         this.status.set(Status.ERROR);
+        console.log(err);
       },
-      next: (value) => {
+      complete: () => {
         this.status.set(Status.SUCCESS);
         this.router.navigateByUrl('/dashboard');
       },
