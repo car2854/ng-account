@@ -1,7 +1,7 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
-type InputType = 'text' | 'password' | 'email' | 'text-area';
+type InputType = 'text' | 'password' | 'email' | 'text-area' | 'number';
 
 @Component({
   selector: 'app-form-input',
@@ -22,6 +22,11 @@ export class FormInputComponent {
 
   value!: string;
   onChange = (_: any) => {};
+
+  onChangeTextArea = (e: Event) => {
+    this.onChange((e.target as HTMLTextAreaElement).value);
+  };
+
   onTouched = () => {};
 
   writeValue(value: string): void {

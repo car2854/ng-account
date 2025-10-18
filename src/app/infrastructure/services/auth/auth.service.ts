@@ -1,3 +1,4 @@
+import { getHeadersWithToken, getToken } from './../../../presentation/helpers/get-token';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
@@ -23,6 +24,12 @@ export class AuthService {
   };
 
   renewToken = () => {
-    return this.http.post<UserAuthModel>(`${this.baseUrl}/token`, {});
+    return this.http.post<UserAuthModel>(
+      `${this.baseUrl}/token`,
+      {},
+      {
+        headers: getHeadersWithToken(),
+      }
+    );
   };
 }

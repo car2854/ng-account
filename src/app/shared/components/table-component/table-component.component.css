@@ -15,3 +15,17 @@ th, td{
   border-bottom: 1px solid var(--text-secondary-25);
   padding: 8px;
 }
+
+.empty-data{
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  padding-block: 18px;
+}
+
+.empty-icon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

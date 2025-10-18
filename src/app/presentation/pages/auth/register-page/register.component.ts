@@ -11,6 +11,7 @@ import { RegisterUseCase } from '../../../../core/use-cases/auth/register.usecas
 import { mapFormToDto } from '../../../helpers/map-from-to-dto';
 import { RegisterForm } from '../../../../core/entities/register-form';
 import { HttpErrorResponse } from '@angular/common/http';
+import { errorHelpers } from '../../../helpers/errors-helper';
 
 @Component({
   selector: 'app-register',
@@ -35,7 +36,7 @@ export class RegisterComponent {
     this.registerUseCase.execute(dto).subscribe({
       error: (err: HttpErrorResponse) => {
         this.status.set(Status.ERROR);
-        console.log(err);
+        errorHelpers(err);
       },
       complete: () => {
         this.status.set(Status.SUCCESS);

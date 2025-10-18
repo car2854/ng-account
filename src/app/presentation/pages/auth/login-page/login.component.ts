@@ -11,6 +11,7 @@ import { Status } from '../../../enum/status-enum';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IsLoadingPipe } from '../../../pipe/loading/is-loading.pipe';
 import { LoginFormBuilder } from './login.form';
+import { errorHelpers } from '../../../helpers/errors-helper';
 
 @Component({
   selector: 'app-login',
@@ -37,7 +38,7 @@ export class LoginComponent implements OnInit {
       const dto = mapFormToDto<LoginForm>(this.form);
       this.loginUseCase.execute(dto).subscribe({
         error: (err: HttpErrorResponse) => {
-          console.log(err.error);
+          errorHelpers(err);
           this.status.set(Status.ERROR);
         },
         next: (value) => {

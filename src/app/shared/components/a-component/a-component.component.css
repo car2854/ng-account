@@ -1,3 +1,7 @@
+.navegate{
+  display: flex;
+}
+
 a{
   margin: 10px auto;
   background-color: var(--primary-button);

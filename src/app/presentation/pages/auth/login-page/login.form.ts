@@ -5,8 +5,8 @@ import { inject, Inject, Injectable, isDevMode } from '@angular/core';
 import { BaseFormBuilders } from '../../../../shared/form/base-form-builders';
 
 @Injectable({ providedIn: 'root' })
-export class LoginFormBuilder extends BaseFormBuilders{
-  build = () => {
+export class LoginFormBuilder extends BaseFormBuilders {
+  override build = () => {
     return this.fb.group<FormBuilderControls<LoginForm>>({
       password: [isDevMode() ? '123456789' : '', Validators.required],
       email: [isDevMode() ? 'Carlos5@gmail.com' : '', Validators.required],

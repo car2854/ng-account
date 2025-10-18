@@ -1,4 +1,4 @@
 <div class="form-group">
-  <input type="checkbox" placeholder="" title="{{label}}">
+  <input type="checkbox" placeholder="" title="{{label}}" [checked]="value" (change)="onInputChange($event)">
   <label for="">{{label}}</label>
 </div>

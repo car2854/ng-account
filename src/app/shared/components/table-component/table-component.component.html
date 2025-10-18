@@ -1,19 +1,27 @@
-<table>
-  <!-- <caption>Title table</caption> -->
-  <thead>
-    <tr>
-      @for (header of table.headers; track $index) {
-        <th>{{header}}</th>
-      }
-    </tr>
-  </thead>
-  <tbody>
-    @for (body of table.body; track $index) {
+@if(table().body.length > 0){
+  <table>
+    <!-- <caption>Title table</caption> -->
+    <thead>
       <tr>
-        @for (item of body; track $index) {
-          <td>{{item}}</td>
+        @for (header of getHeader(); track $index) {
+          <th>{{header}}</th>
         }
       </tr>
-    }
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      @for (body of getBody(); track $index) {
+        <tr>
+          @for (item of body; track $index) {
+            <td>{{item}}</td>
+          }
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+@else{
+  <div class="empty-data">
+    <lucide-angular [img]="XIcon" [size]="45" class="empty-icon"></lucide-angular>
+    <h1>No hay datos para mostrar</h1>
+  </div>
+}

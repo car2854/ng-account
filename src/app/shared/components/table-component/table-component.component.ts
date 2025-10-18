@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, signal } from '@angular/core';
+import { XIcon, LucideAngularModule } from 'lucide-angular';
 
 export interface TableInterface{
   headers: string[]
@@ -8,18 +9,22 @@ export interface TableInterface{
 @Component({
   selector: 'app-table',
   templateUrl: './table-component.component.html',
-  styleUrls: ['./table-component.component.css']
+  styleUrls: ['./table-component.component.css'],
+  imports: [LucideAngularModule],
 })
 export class TableComponentComponent implements OnInit {
+  readonly XIcon = XIcon;
 
-  @Input({required: true}) table: TableInterface = {
+  @Input() options: [] = [];
+  @Input({ required: false }) table = signal<TableInterface>({
     headers: [],
     body: [],
-  }
+  });
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
+  getHeader = () => (this.table().headers.length == 0 ? [] : this.table().headers.slice(1));
+  getBody = () => (this.table().body.length == 0 ? [] : this.table().body.map((m) => m.slice(1)));
 }

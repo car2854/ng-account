@@ -1,26 +1,36 @@
 <app-card title="Account data">
 
   <div card-body>
-    <form action="">
+    <form action="" [formGroup]="form" (submit)="save()">
       <app-form-input
         label="Title"
         placeholder="Title"
+        formControlName="title"
+      ></app-form-input>
+
+      <app-form-input
+        label="Initial Amount"
+        placeholder="Initial Amount"
+        formControlName="initialAmount"
+        type="number"
       ></app-form-input>
 
       <app-form-input
         label="Description"
         placeholder="Description"
+        formControlName="description"
         type="text-area"
       ></app-form-input>
 
       <app-form-checkbox
         label="Active"
+        formControlName="isActive"
       ></app-form-checkbox>
 
       <div class="align-end">
         <app-button
           label="Save"
-          [onClick]="save"
+          type="submit"
         ></app-button>
       </div>
     </form>
