@@ -1,0 +1,14 @@
+<div class="dropdown">
+  <app-button
+    [label]=label
+    [icon]=icon
+    [onClick]="clickDropdown"
+  ></app-button>
+  @if (isVisible()) {
+    <div class="dropdown-content">
+      @for (option of options; track $index) {
+        <button (click)="option.onClick(id)">{{option.description}}</button>
+      }
+    </div>
+  }
+</div>

@@ -4,6 +4,7 @@ import { TableComponentComponent, TableInterface } from "../../../../../shared/c
 import { AComponentComponent } from "../../../../../shared/components/a-component/a-component.component";
 import { GetAccountUseCase } from '../../../../../core/use-cases/account/get-account.usecase';
 import { errorHelpers } from '../../../../helpers/errors-helper';
+import { OptionsInterface } from '../../../../../shared/components/dropdown-button-component/dropdown-button-component.component';
 
 @Component({
   selector: 'app-accounts',
@@ -18,6 +19,23 @@ export class AccountsComponent implements OnInit {
     headers: ['Id', 'Title', 'Description', 'Amount', 'CreatedAt'],
     body: []
   });
+  public options : OptionsInterface[] = [
+    {
+      icon: 'Delete',
+      description: 'See',
+      onClick(id) {
+
+      },
+    },
+    {
+      icon: 'Edit',
+      description: 'Edit',
+      onClick(id) {
+        console.log(id);
+
+      },
+    }
+  ]
 
   constructor() {}
 
@@ -27,7 +45,6 @@ export class AccountsComponent implements OnInit {
         errorHelpers(err);
       },
       next: (value) => {
-
         this.table.update((prev) => {
           return {
             headers: prev.headers,
@@ -36,7 +53,7 @@ export class AccountsComponent implements OnInit {
               v.title,
               v.description,
               v.amount,
-              v.createdAt
+              v.createdAt,
             ]),
           };
         });

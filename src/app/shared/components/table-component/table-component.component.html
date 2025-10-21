@@ -6,6 +6,9 @@
         @for (header of getHeader(); track $index) {
           <th>{{header}}</th>
         }
+        @if(options.length > 0){
+          <th>Options</th>
+        }
       </tr>
     </thead>
     <tbody>
@@ -13,6 +16,15 @@
         <tr>
           @for (item of body; track $index) {
             <td>{{item}}</td>
+          }
+          @if(options.length > 0){
+            <td>
+              <app-dropdown-button-component
+                icon="EllipsisVertical"
+                [id]="table().body[$index][0]"
+                [options]="options"
+              ></app-dropdown-button-component>
+            </td>
           }
         </tr>
       }

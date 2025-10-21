@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, signal } from '@angular/core';
 import { XIcon, LucideAngularModule } from 'lucide-angular';
+import { DropdownButtonComponentComponent, OptionsInterface } from "../dropdown-button-component/dropdown-button-component.component";
 
 export interface TableInterface{
   headers: string[]
@@ -10,11 +11,11 @@ export interface TableInterface{
   selector: 'app-table',
   templateUrl: './table-component.component.html',
   styleUrls: ['./table-component.component.css'],
-  imports: [LucideAngularModule],
+  imports: [LucideAngularModule, DropdownButtonComponentComponent],
 })
 export class TableComponentComponent implements OnInit {
   readonly XIcon = XIcon;
-
+  @Input() options : OptionsInterface[] = [];
   @Input({ required: false }) table = signal<TableInterface>({
     headers: [],
     body: [],

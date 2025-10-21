@@ -1,3 +1,6 @@
 <button [type]="type" (click)="onClick()" [disabled]="disabled">
+  @if(icon) {
+    <lucide-angular size="12" [img]="icon | icon"></lucide-angular>
+  }
   {{label}}
 </button>
