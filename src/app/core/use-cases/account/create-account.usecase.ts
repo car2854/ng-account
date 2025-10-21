@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class CreateAccountUseCase {
+export class CreateAccountUseCase{
   private accountService = inject(AccountService);
   execute = (accountForm: AccountForm): Observable<AccountModel> =>
     this.accountService.createAccount(accountForm);

@@ -1,16 +1,17 @@
 <app-card title="User data">
 
   <div card-body>
-    <form action="">
+    <form action="" [formGroup]="form" (submit)="save()">
       <app-form-input
         label="Name"
         placeholder="Name"
+        formControlName="name"
       ></app-form-input>
 
       <div class="align-end">
         <app-button
-          label="Save"
-          [onClick]="save"
+          [label]="(status() | isLoading) ? 'Guardando...' : 'Save'"
+          type="submit"
         ></app-button>
       </div>
     </form>

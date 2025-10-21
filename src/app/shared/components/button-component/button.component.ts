@@ -11,6 +11,7 @@ export class ButtonComponent implements OnInit {
   @Input({ required: true }) label: string = '';
   @Input() onClick: () => void = () => {};
   @Input() type: TypeButton = 'submit';
+  @Input() disabled: boolean = false;
 
   constructor() {}
 

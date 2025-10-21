@@ -15,7 +15,6 @@ export interface TableInterface{
 export class TableComponentComponent implements OnInit {
   readonly XIcon = XIcon;
 
-  @Input() options: [] = [];
   @Input({ required: false }) table = signal<TableInterface>({
     headers: [],
     body: [],
