@@ -1,10 +1,11 @@
 .dropdown{
   position: relative;
+  margin: auto;
 }
 
 .dropdown-content{
-  top: 39px;
-  left: 22px;
+  top: 35px;
+  left: 0px;
   position: absolute;
   z-index: 1;
   background-color: var(--surface);
@@ -14,7 +15,15 @@
   border: 1px solid var(--text-secondary);
 }
 
-button{
+.button-dropdown-content{
   width: 100%;
+  padding-block: 8px;
+}
+
+.button-dropdown{
+  background-color: var(--primary-button);
+  color: var(--primary-text-button);
+  border-radius: 8px;
+  padding-inline: 10px;
   padding-block: 8px;
 }

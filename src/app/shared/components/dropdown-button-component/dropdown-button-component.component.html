@@ -1,13 +1,14 @@
 <div class="dropdown">
-  <app-button
-    [label]=label
-    [icon]=icon
-    [onClick]="clickDropdown"
-  ></app-button>
+  <button class="button-dropdown" type="button" (click)="clickDropdown()">
+    @if(icon){
+      <lucide-angular size="12" [img]="icon | icon"></lucide-angular>
+    }
+    {{label}}
+  </button>
   @if (isVisible()) {
     <div class="dropdown-content">
       @for (option of options; track $index) {
-        <button (click)="option.onClick(id)">{{option.description}}</button>
+        <button class="button-dropdown-content" type="button" (click)="option.onClick(id)">{{option.description}}</button>
       }
     </div>
   }

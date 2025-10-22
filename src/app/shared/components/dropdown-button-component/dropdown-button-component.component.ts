@@ -1,5 +1,7 @@
 import { Component, ElementRef, HostListener, inject, Input, OnInit, signal } from '@angular/core';
 import { ButtonComponent } from "../button-component/button.component";
+import { LucideAngularModule } from "lucide-angular";
+import { IconPipe } from '../../../presentation/pipe/icon/icon.pipe';
 
 export interface OptionsInterface {
   icon: string;
@@ -11,7 +13,7 @@ export interface OptionsInterface {
   selector: 'app-dropdown-button-component',
   templateUrl: './dropdown-button-component.component.html',
   styleUrls: ['./dropdown-button-component.component.css'],
-  imports: [ButtonComponent],
+  imports: [LucideAngularModule, IconPipe],
 })
 export class DropdownButtonComponentComponent implements OnInit {
   @Input() label: string = '';

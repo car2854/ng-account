@@ -5,7 +5,7 @@ table{
 }
 
 table thead tr th{
-  padding-block: 18px;
+  padding-block: 8px;
   color: var(--text-secondary);
   text-align: start;
 }
@@ -13,7 +13,7 @@ table thead tr th{
 
 th, td{
   border-bottom: 1px solid var(--text-secondary-25);
-  padding: 8px;
+  height: 50px;
 }
 
 .empty-data{
