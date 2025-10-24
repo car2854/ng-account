@@ -6,6 +6,8 @@ import { ButtonComponent } from "../../../../../shared/components/button-compone
 import { AComponentComponent } from "../../../../../shared/components/a-component/a-component.component";
 import { GetMembersUseCase } from '../../../../../core/use-cases/member/get-members.usecase';
 import { errorHelpers } from '../../../../helpers/errors-helper';
+import { OptionsInterface } from '../../../../../shared/components/dropdown-button-component/dropdown-button-component.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -14,37 +16,45 @@ import { errorHelpers } from '../../../../helpers/errors-helper';
   imports: [CardComponent, TableComponentComponent, AComponentComponent],
 })
 export class UsersComponent implements OnInit {
-
   private useCase = inject(GetMembersUseCase);
+  private router = inject(Router);
 
-  public table = signal<TableInterface>(
+  public table = signal<TableInterface>({
+    headers: ['Id', 'Name', 'Created At'],
+    body: [],
+  });
+  public options: OptionsInterface[] = [
     {
-      headers: ['Id', 'Name', 'Created At'],
-      body: [],
-    }
-  );
+      icon: 'Delete',
+      description: 'See',
+      onClick:(id) => {
+        this.router.navigateByUrl(`/user-info/${id}`);
+      },
+    },
+    {
+      icon: 'Edit',
+      description: 'Edit',
+      onClick(id) {
+        console.log(id);
+      },
+    },
+  ];
 
   constructor() {}
 
   ngOnInit() {
-
     this.useCase.execute().subscribe({
       error: (err) => {
         errorHelpers(err);
       },
       next: (value) => {
-        this.table.update(prev => {
+        this.table.update((prev) => {
           return {
             headers: prev.headers,
-            body: value.map((v) => [
-              v.id,
-              v.name,
-              v.createdAt
-            ])
-          }
-        })
+            body: value.map((v) => [v.id, v.name, v.createdAt]),
+          };
+        });
       },
     });
-
   }
 }

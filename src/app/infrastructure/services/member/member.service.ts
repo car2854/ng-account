@@ -19,6 +19,10 @@ export class MemberService {
 
   getMembers = () => this.httpClient.get<MemberModel[]>(`${this.url}`, {
     headers: getHeadersWithToken()
-  })
+  });
+
+  getMember = (memberId: number) => this.httpClient.get<MemberModel>(`${this.url}/${memberId}`, {
+    headers: getHeadersWithToken()
+  });
 
 }

@@ -6,6 +6,7 @@ import { AccountsComponent } from "./account-page/accounts/accounts.component";
 import { UserComponent } from "./user-page/user/user.component";
 import { AccountComponent } from "./account-page/account/account.component";
 import { authGuard } from "../../guards/auth-guard";
+import { UserInfoComponent } from "./user-page/user-info/user-info.component";
 
 export const MAIN_ROUTES: Routes = [
   {
@@ -16,6 +17,7 @@ export const MAIN_ROUTES: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'users', component: UsersComponent },
       { path: 'user', component: UserComponent },
+      { path: 'user-info/:id', component: UserInfoComponent },
       { path: 'accounts', component: AccountsComponent },
       { path: 'account', component: AccountComponent },
     ],

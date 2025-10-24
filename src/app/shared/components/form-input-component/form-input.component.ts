@@ -19,8 +19,9 @@ export class FormInputComponent {
   @Input({ required: true }) label: string = '';
   @Input() type: InputType = 'text';
   @Input() placeholder: string = '';
+  @Input() readonly: boolean = false;
+  @Input() value: string = '';
 
-  value!: string;
   onChange = (_: any) => {};
 
   onChangeTextArea = (e: Event) => {

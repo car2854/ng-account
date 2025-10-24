@@ -1,0 +1,17 @@
+<app-card title="User">
+
+  <div card-body>
+    <app-form-input
+      label="Name"
+      [readonly]="true"
+      placeholder="Name"
+      [value]="member()?.name ?? ''"
+    ></app-form-input>
+    <app-form-input
+      label="Created At"
+      [readonly]="true"
+      placeholder="Created At"
+      [value]="member()?.createdAt | dateFormat"
+    ></app-form-input>
+  </div>
+</app-card>
