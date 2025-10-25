@@ -13,13 +13,18 @@ export class AccountService {
   private http = inject(HttpClient);
   private url = `${this.baseUrl}/accounting`;
 
-  createAccount = (accountForm: AccountForm) =>
+  public createAccount = (accountForm: AccountForm) =>
     this.http.post<AccountModel>(this.url, accountForm, {
       headers: getHeadersWithToken(),
     });
 
-  getAccounts = () =>
+  public getAccounts = () =>
     this.http.get<AccountModel[]>(this.url, {
+      headers: getHeadersWithToken(),
+    });
+
+  public getAccount = (id: number) =>
+    this.http.get<AccountModel>(`${this.url}/${id}`, {
       headers: getHeadersWithToken(),
     });
 }

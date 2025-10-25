@@ -1,0 +1,44 @@
+<app-card [title]="account()?.title ?? ''">
+  <div card-header>
+    <p>{{account()?.createdAt | dateFormat}}</p>
+  </div>
+  <div card-body>
+    <p>{{account()?.description ?? ''}}</p>
+    <p>{{account()?.createdAt | dateFormat}}</p>
+    <div class="align-end">
+      <app-amount-component
+        [amount]="account()?.amount"
+      ></app-amount-component>
+    </div>
+  </div>
+</app-card>
+
+<app-card title="History">
+  <div card-header>
+    <app-button
+      label="New"
+      (click)="openModal()"
+    ></app-button>
+  </div>
+  <div card-body>
+
+  </div>
+</app-card>
+
+<app-modal-component>
+  <div modal-body>
+    <form action="" (submit)="save()">
+      <app-form-input
+        label="Amount"
+      ></app-form-input>
+      <app-form-input
+        label="Date"
+      ></app-form-input>
+      <app-button
+        type="submit"
+        label="Save"
+      >
+      </app-button>
+    </form>
+  </div>
+</app-modal-component>

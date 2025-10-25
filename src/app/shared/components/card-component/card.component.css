@@ -2,4 +2,11 @@
   background-color: var(--surface);
   padding: 24px;
   border-radius: 24px;
+  margin-bottom: 24px;
+}
+
+.card-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

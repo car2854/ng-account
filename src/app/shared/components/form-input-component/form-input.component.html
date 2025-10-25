@@ -1,7 +1,7 @@
 <div class="form-group">
   <label for="">{{label}}</label>
   @if (type == 'text-area') {
-    <textarea name="" id="" title="{label}" rows="6" (input)="onChangeTextArea($event)" [value]="value"></textarea>
+    <textarea name="" id="" title="{label}" rows="6" (input)="onChangeTextArea($event)" [value]="value" [readOnly]="readonly"></textarea>
   } @else {
     <input [type]="type" [readonly]="readonly" placeholder="{{placeholder}}" [value]="value" (input)="onChange($event.target.value)">
   }

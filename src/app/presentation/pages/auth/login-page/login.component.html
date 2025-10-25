@@ -15,7 +15,10 @@
         formControlName="password"
       ></app-form-input>
 
-      <app-button label="{{(status() | isLoading) ? 'Iniciando...' : 'Login'}}"></app-button>
+      <div class="button">
+        <app-button label="{{(status() | isLoading) ? 'Iniciando...' : 'Login'}}"></app-button>
+      </div>
+
 
       <p>Don't have an account? <a [routerLink]="['/auth/register']">Sign up here.</a></p>
 

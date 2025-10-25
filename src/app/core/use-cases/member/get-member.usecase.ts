@@ -7,5 +7,5 @@ import { MemberModel } from "../../models/member-model";
 export class GetMemberUserCase {
   private memberService = inject(MemberService);
 
-  execute = (memberId: number): Observable<MemberModel> => this.memberService.getMember(memberId);
+  public execute = (memberId: number): Observable<MemberModel> => this.memberService.getMember(memberId);
 }

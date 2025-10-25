@@ -2,9 +2,10 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { CardComponent } from "../../../../../shared/components/card-component/card.component";
 import { TableComponentComponent, TableInterface } from "../../../../../shared/components/table-component/table-component.component";
 import { AComponentComponent } from "../../../../../shared/components/a-component/a-component.component";
-import { GetAccountUseCase } from '../../../../../core/use-cases/account/get-account.usecase';
+import { GetAccountsUseCase } from '../../../../../core/use-cases/account/get-accounts.usecase';
 import { errorHelpers } from '../../../../helpers/errors-helper';
 import { OptionsInterface } from '../../../../../shared/components/dropdown-button-component/dropdown-button-component.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-accounts',
@@ -13,7 +14,8 @@ import { OptionsInterface } from '../../../../../shared/components/dropdown-butt
   imports: [CardComponent, TableComponentComponent, AComponentComponent],
 })
 export class AccountsComponent implements OnInit {
-  private useCase = inject(GetAccountUseCase);
+  private router = inject(Router);
+  private useCase = inject(GetAccountsUseCase);
 
   public table = signal<TableInterface>({
     headers: ['Id', 'Title', 'Description', 'Amount', 'CreatedAt'],
@@ -23,8 +25,8 @@ export class AccountsComponent implements OnInit {
     {
       icon: 'Delete',
       description: 'See',
-      onClick(id) {
-
+      onClick: (id) => {
+        this.router.navigateByUrl(`/account-info/${id}`);
       },
     },
     {

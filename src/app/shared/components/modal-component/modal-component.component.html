@@ -1,0 +1,7 @@
+<dialog #myModal>
+  <div class="modal-content">
+    <ng-content select="[modal-body]">
+      <button type="button" (click)="onCloseModal()">Close</button>
+    </ng-content>
+  </div>
+</dialog>

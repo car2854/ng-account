@@ -1,5 +1,5 @@
 button{
-  margin: 10px auto;
+  margin: auto;
   background-color: var(--primary-button);
   color: var(--primary-text-button);
   border-radius: 8px;

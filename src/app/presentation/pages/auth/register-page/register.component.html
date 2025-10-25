@@ -20,7 +20,9 @@
         formControlName="password"
       ></app-form-input>
 
-      <app-button label="{{(status() | isLoading) ? 'Registrando...' : 'Register'}}" type="submit"></app-button>
+      <div class="button">
+        <app-button label="{{(status() | isLoading) ? 'Registrando...' : 'Register'}}" type="submit"></app-button>
+      </div>
 
       <p [routerLink]="['/auth/login']">Already hace an account? <a>Log in here.</a></p>
 

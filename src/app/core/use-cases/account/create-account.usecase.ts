@@ -9,6 +9,6 @@ import { Observable } from 'rxjs';
 })
 export class CreateAccountUseCase{
   private accountService = inject(AccountService);
-  execute = (accountForm: AccountForm): Observable<AccountModel> =>
+  public execute = (accountForm: AccountForm): Observable<AccountModel> =>
     this.accountService.createAccount(accountForm);
 }

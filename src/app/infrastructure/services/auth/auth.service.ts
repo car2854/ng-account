@@ -15,15 +15,15 @@ export class AuthService {
 
   constructor() {}
 
-  login = (loginForm: LoginForm) => {
+  public login = (loginForm: LoginForm) => {
     return this.http.post<UserAuthModel>(`${this.baseUrl}/login`, loginForm);
   };
 
-  register = (registerForm: RegisterForm) => {
+  public register = (registerForm: RegisterForm) => {
     return this.http.post<UserAuthModel>(`${this.baseUrl}/register`, registerForm);
   };
 
-  renewToken = () => {
+  public renewToken = () => {
     return this.http.post<UserAuthModel>(
       `${this.baseUrl}/token`,
       {},

@@ -5,5 +5,5 @@ import { MemberForm } from "../../entities/member-form";
 @Injectable({providedIn: 'root'})
 export class CreateMemberUseCase {
   private service = inject(MemberService);
-  execute = (member: MemberForm) => this.service.createMember(member);
+  public execute = (member: MemberForm) => this.service.createMember(member);
 }

@@ -6,7 +6,7 @@ import { UserAuthModel } from "../../models/user-auth-model";
 @Injectable({ providedIn: 'root' })
 export class RenewTokenUseCase{
   private authService = inject(AuthService);
-  execute = () : Observable<boolean> => this.authService.renewToken().pipe(
+  public execute = () : Observable<boolean> => this.authService.renewToken().pipe(
     tap((resp: UserAuthModel) => {
       localStorage.setItem('token', resp.token);
     }),

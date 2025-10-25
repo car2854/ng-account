@@ -1,10 +1,10 @@
 import { inject, Injectable } from "@angular/core";
 import { AccountService } from "../../../infrastructure/services/account/account.service";
-import { Observable } from "rxjs";
 import { AccountModel } from "../../models/account-model";
+import { Observable } from "rxjs";
 
-@Injectable({providedIn: 'root'})
-export class GetAccountUseCase {
+@Injectable({ providedIn: 'root' })
+export class GetAccountsUseCase {
   private accountService = inject(AccountService);
-  public execute = (id: number) : Observable<AccountModel> => this.accountService.getAccount(id);
+  public execute = (): Observable<AccountModel[]> => this.accountService.getAccounts();
 }

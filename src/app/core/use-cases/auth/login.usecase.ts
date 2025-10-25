@@ -7,7 +7,7 @@ import { UserAuthModel } from '../../models/user-auth-model';
 @Injectable({providedIn: 'root'})
 export class LoginUseCase {
   private authService = inject(AuthService);
-  execute = (loginForm: LoginForm) => this.authService.login(loginForm).pipe(
+  public execute = (loginForm: LoginForm) => this.authService.login(loginForm).pipe(
     tap((resp: UserAuthModel) => {
       localStorage.setItem('token', resp.token);
     })

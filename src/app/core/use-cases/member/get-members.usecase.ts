@@ -6,5 +6,5 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class GetMembersUseCase {
   private memberService = inject(MemberService);
-  execute = (): Observable<MemberModel[]> => this.memberService.getMembers();
+  public execute = (): Observable<MemberModel[]> => this.memberService.getMembers();
 }

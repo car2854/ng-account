@@ -13,15 +13,15 @@ export class MemberService {
   private url = `${this.baseUrl}/member`;
   private httpClient = inject(HttpClient);
 
-  createMember = (member: MemberForm) => this.httpClient.post(`${this.url}`, member, {
+  public createMember = (member: MemberForm) => this.httpClient.post(`${this.url}`, member, {
     headers: getHeadersWithToken()
   });
 
-  getMembers = () => this.httpClient.get<MemberModel[]>(`${this.url}`, {
+  public getMembers = () => this.httpClient.get<MemberModel[]>(`${this.url}`, {
     headers: getHeadersWithToken()
   });
 
-  getMember = (memberId: number) => this.httpClient.get<MemberModel>(`${this.url}/${memberId}`, {
+  public getMember = (memberId: number) => this.httpClient.get<MemberModel>(`${this.url}/${memberId}`, {
     headers: getHeadersWithToken()
   });
 
