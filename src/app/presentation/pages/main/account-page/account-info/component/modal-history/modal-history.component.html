@@ -1,0 +1,27 @@
+<app-modal-component>
+  <div modal-body>
+    <form action="" [formGroup]="form" (submit)="save()">
+      <app-form-input
+        label="Amount"
+        placeholder="Amount"
+        formControlName="amount"
+      ></app-form-input>
+      <app-form-input
+        label="Date"
+        placeholder="Date"
+        formControlName="date"
+      ></app-form-input>
+      <app-form-input
+        type="text-area"
+        label="Description"
+        placeholder="Description"
+        formControlName="description"
+      ></app-form-input>
+      <app-button
+        type="submit"
+        label="Save"
+      >
+      </app-button>
+    </form>
+  </div>
+</app-modal-component>
