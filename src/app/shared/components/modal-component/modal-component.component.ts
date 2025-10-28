@@ -1,4 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { View } from 'lucide-angular';
 
 @Component({
   selector: 'app-modal-component',
@@ -7,6 +8,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 })
 export class ModalComponentComponent implements OnInit {
   @ViewChild('myModal') myModalRef!: ElementRef<HTMLDialogElement>;
+  @Input({required: true}) title!: string;
 
   constructor() {}
 

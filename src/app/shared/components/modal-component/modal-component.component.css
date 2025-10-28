@@ -19,3 +19,8 @@ button {
 .modal-content{
   padding: 18px;
 }
+
+.title{
+  text-align: center;
+  padding-block: 8px;
+}

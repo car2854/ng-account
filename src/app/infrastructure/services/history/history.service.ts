@@ -19,4 +19,9 @@ export class HistoryService {
     this.http.post<HistoryModel>(`${this.url}`, historyForm, {
       headers: getHeadersWithToken(),
     });
+
+  public getHistories = (accountId: number) =>
+    this.http.get<HistoryModel[]>(`${this.url}/:${accountId}`, {
+      headers: getHeadersWithToken(),
+    });
 }

@@ -1,14 +1,15 @@
-import { Component, inject, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ModalComponentComponent } from "../../../../../../../shared/components/modal-component/modal-component.component";
 import { ButtonComponent } from "../../../../../../../shared/components/button-component/button.component";
 import { FormInputComponent } from "../../../../../../../shared/components/form-input-component/form-input.component";
 import { HistoryFormBuilder } from '../../history-form';
 import { ɵInternalFormsSharedModule, ReactiveFormsModule } from "@angular/forms";
-import { CreateHistoryUseCase } from '../../../../../../../core/use-cases/history/create-history.caseuse';
+import { CreateHistoryUseCase } from '../../../../../../../core/use-cases/history/create-history.usecase';
 import { errorHelpers } from '../../../../../../helpers/errors-helper';
 import { mapFormToDto } from '../../../../../../helpers/map-from-to-dto';
 import { AccountForm } from '../../../../../../../core/entities/account-form';
 import { HistoryForm } from '../../../../../../../core/entities/history-form';
+import { HistoryModel } from '../../../../../../../core/models/history-model';
 
 @Component({
   selector: 'app-modal-history-component',
@@ -19,6 +20,7 @@ import { HistoryForm } from '../../../../../../../core/entities/history-form';
 export class ModalHistoryComponent implements OnInit {
   @ViewChild(ModalComponentComponent) modal!: ModalComponentComponent;
   @Input({required: true}) accountId!: number;
+  @Output() newHistory = new EventEmitter<HistoryModel>();
   private historyFB = inject(HistoryFormBuilder);
   private useCase = inject(CreateHistoryUseCase);
   public form = this.historyFB.build();
@@ -40,7 +42,9 @@ export class ModalHistoryComponent implements OnInit {
         error: (err) => {
           errorHelpers(err);
         },
-        next: (value) => {},
+        next: (value) => {
+          this.newHistory.emit(value);
+        },
       });
 
     this.modal.onCloseModal();
