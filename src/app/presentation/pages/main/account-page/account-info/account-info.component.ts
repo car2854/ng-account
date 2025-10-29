@@ -13,6 +13,7 @@ import { ModalHistoryComponent } from "./component/modal-history/modal-history.c
 import { Status } from '../../../../enum/status-enum';
 import { LoadingComponent } from "../../../../../shared/components/loading-component/loading.component";
 import { GetHistoriesUseCase } from '../../../../../core/use-cases/history/get-histories.usecase';
+import { HistoryModel } from '../../../../../core/models/history-model';
 
 @Component({
   selector: 'app-account-info',
@@ -33,7 +34,6 @@ export class AccountInfoComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private getAccountUseCase = inject(GetAccountUseCase);
-  private getHistoriesUseCase = inject(GetHistoriesUseCase);
 
   public account = signal<AccountModel | null>(null);
   public status = signal<Status>(Status.INITIAL);
@@ -48,11 +48,13 @@ export class AccountInfoComponent implements OnInit {
         this.status.set(Status.ERROR);
       },
       next: (value) => {
+        console.log(value);
+
         this.status.set(Status.SUCCESS);
         this.account.set(value);
       },
     });
-  }
+  };
 
   ngOnInit() {
     const id = safeParseInt(this.route.snapshot.paramMap.get('id'));
@@ -62,7 +64,6 @@ export class AccountInfoComponent implements OnInit {
     }
 
     this.getAccount(id);
-
   }
 
   public openModal = () => {
@@ -70,4 +71,13 @@ export class AccountInfoComponent implements OnInit {
   };
 
   public isLoading = () => this.status() == Status.LOADING;
+  public onNewHistory = (newHistory: HistoryModel) =>
+    this.account.update((prev) => {
+      if (prev == null) return prev;
+      prev.histories = [
+        ...prev.histories,
+        newHistory
+      ]
+      return prev;
+    });
 }

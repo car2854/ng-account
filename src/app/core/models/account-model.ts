@@ -1,4 +1,5 @@
 import Decimal from "decimal.js";
+import { HistoryModel } from "./history-model";
 
 export class AccountModel {
   constructor(
@@ -7,5 +8,6 @@ export class AccountModel {
     public description: string,
     public amount: Decimal,
     public createdAt: Date,
+    public histories: HistoryModel[]
   ) {}
 }

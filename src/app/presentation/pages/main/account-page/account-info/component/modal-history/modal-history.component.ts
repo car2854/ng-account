@@ -20,7 +20,7 @@ import { HistoryModel } from '../../../../../../../core/models/history-model';
 export class ModalHistoryComponent implements OnInit {
   @ViewChild(ModalComponentComponent) modal!: ModalComponentComponent;
   @Input({required: true}) accountId!: number;
-  @Output() newHistory = new EventEmitter<HistoryModel>();
+  @Output() onNewHistory = new EventEmitter<HistoryModel>();
   private historyFB = inject(HistoryFormBuilder);
   private useCase = inject(CreateHistoryUseCase);
   public form = this.historyFB.build();
@@ -36,18 +36,19 @@ export class ModalHistoryComponent implements OnInit {
     this.useCase
       .execute({
         ...dto,
-        accountId: this.accountId
+        amount: Number(dto.amount),
+        accountId: this.accountId,
       })
       .subscribe({
         error: (err) => {
           errorHelpers(err);
         },
         next: (value) => {
-          this.newHistory.emit(value);
+          this.onNewHistory.emit(value);
+          this.modal.onCloseModal();
         },
       });
 
-    this.modal.onCloseModal();
   };
 
   public openModal = () => {

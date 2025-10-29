@@ -33,6 +33,7 @@
 
   <app-modal-history-component
     [accountId]="account()!.id"
+    (onNewHistory)="onNewHistory($event)"
   ></app-modal-history-component>
 
 }
