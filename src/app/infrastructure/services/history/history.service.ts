@@ -21,7 +21,7 @@ export class HistoryService {
     });
 
   public getHistories = (accountId: number) =>
-    this.http.get<HistoryModel[]>(`${this.url}/:${accountId}`, {
+    this.http.get<HistoryModel[]>(`${this.url}/${accountId}`, {
       headers: getHeadersWithToken(),
     });
 }

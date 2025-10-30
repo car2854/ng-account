@@ -14,6 +14,10 @@ import { Status } from '../../../../enum/status-enum';
 import { LoadingComponent } from "../../../../../shared/components/loading-component/loading.component";
 import { GetHistoriesUseCase } from '../../../../../core/use-cases/history/get-histories.usecase';
 import { HistoryModel } from '../../../../../core/models/history-model';
+import { NumberMaskFormatPipe } from '../../../../pipe/number-mask-format/number-mask-format.pipe';
+import Decimal from 'decimal.js';
+import { TableComponentComponent, TableInterface } from "../../../../../shared/components/table-component/table-component.component";
+import { DropdownButtonComponentComponent, OptionsInterface } from "../../../../../shared/components/dropdown-button-component/dropdown-button-component.component";
 
 @Component({
   selector: 'app-account-info',
@@ -27,6 +31,8 @@ import { HistoryModel } from '../../../../../core/models/history-model';
     ReactiveFormsModule,
     ModalHistoryComponent,
     LoadingComponent,
+    TableComponentComponent,
+    DropdownButtonComponentComponent,
   ],
 })
 export class AccountInfoComponent implements OnInit {
@@ -34,24 +40,60 @@ export class AccountInfoComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private getAccountUseCase = inject(GetAccountUseCase);
+  private getHistoriesUseCase = inject(GetHistoriesUseCase);
 
   public account = signal<AccountModel | null>(null);
-  public status = signal<Status>(Status.INITIAL);
+  public histories = signal<TableInterface>({
+    headers: ['Id', 'Amount', 'Date', 'Description'],
+    body: [],
+  });
+
+  public statusAccount = signal<Status>(Status.INITIAL);
+  public statusHistory = signal<Status>(Status.INITIAL);
+  public options: OptionsInterface[] = [
+    {
+      description: 'Excel',
+      icon: 'file-text',
+      onClick: () => {},
+    },
+    {
+      description: 'Pdf',
+      icon: 'file-text',
+      onClick: () => {},
+    },
+  ];
 
   constructor() {}
 
   private getAccount = (id: number) => {
-    this.status.set(Status.LOADING);
+    this.statusAccount.set(Status.LOADING);
     this.getAccountUseCase.execute(id).subscribe({
       error: (err) => {
         errorHelpers(err);
-        this.status.set(Status.ERROR);
+        this.statusAccount.set(Status.ERROR);
       },
       next: (value) => {
-        console.log(value);
-
-        this.status.set(Status.SUCCESS);
+        this.statusAccount.set(Status.SUCCESS);
         this.account.set(value);
+      },
+    });
+  };
+
+  private getHistories = (id: number) => {
+    this.statusHistory.set(Status.LOADING);
+    this.getHistoriesUseCase.execute(id).subscribe({
+      error: (err) => {
+        errorHelpers(err);
+        this.statusHistory.set(Status.ERROR);
+      },
+      next: (value) => {
+        this.histories.update((prev) => {
+          return {
+            headers: prev.headers,
+            body: value.map((v) => [v.id, v.amount, v.date, v.description]),
+          };
+        });
+        this.statusHistory.set(Status.SUCCESS);
       },
     });
   };
@@ -64,20 +106,27 @@ export class AccountInfoComponent implements OnInit {
     }
 
     this.getAccount(id);
+    this.getHistories(id);
   }
 
   public openModal = () => {
     this.modal.openModal();
   };
 
-  public isLoading = () => this.status() == Status.LOADING;
-  public onNewHistory = (newHistory: HistoryModel) =>
+  public isLoading = () => this.statusAccount() == Status.LOADING;
+  public onNewHistory = (newHistory: HistoryModel) => {
+    this.histories.update((prev) => {
+      return {
+        headers: prev.headers,
+        body: [...prev.body, newHistory],
+      };
+    });
     this.account.update((prev) => {
-      if (prev == null) return prev;
-      prev.histories = [
-        ...prev.histories,
-        newHistory
-      ]
+      if (!prev) return prev;
+      const prevAmount = new Decimal(prev.amount);
+      const newAmount = new Decimal(newHistory.amount);
+      prev.amount = prevAmount.plus(newAmount);
       return prev;
     });
+  };
 }

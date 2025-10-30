@@ -4,7 +4,7 @@
 }
 
 .dropdown-content{
-  top: 35px;
+  top: 39px;
   left: 0px;
   position: absolute;
   z-index: 1;
@@ -24,6 +24,7 @@
   background-color: var(--primary-button);
   color: var(--primary-text-button);
   border-radius: 8px;
-  padding-inline: 10px;
-  padding-block: 8px;
+  /* padding-inline: 10px;
+  padding-block: 8px; */
+  padding: 10px;
 }

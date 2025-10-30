@@ -8,6 +8,5 @@ export class AccountModel {
     public description: string,
     public amount: Decimal,
     public createdAt: Date,
-    public histories: HistoryModel[]
   ) {}
 }

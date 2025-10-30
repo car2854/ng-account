@@ -9,7 +9,6 @@
     </div>
     <div card-body>
       <p>{{account()?.description ?? ''}}</p>
-      <p>{{account()?.createdAt | dateFormat}}</p>
       <div class="align-end">
         <app-amount-component
           [amount]="account()?.amount"
@@ -20,13 +19,22 @@
 
   <app-card title="History">
     <div card-header>
-      <app-button
-        label="New"
-        (click)="openModal()"
-      ></app-button>
+      <div class="card-header-buttons">
+        <app-button
+          label="New"
+          (click)="openModal()"
+        ></app-button>
+        <app-dropdown-button-component
+          icon="EllipsisVertical"
+          label="Export"
+          [options]="options"
+        ></app-dropdown-button-component>
+      </div>
     </div>
     <div card-body>
-
+      <app-table
+        [table]="histories"
+      ></app-table>
     </div>
   </app-card>
 
