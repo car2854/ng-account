@@ -24,11 +24,16 @@
           label="New"
           (click)="openModal()"
         ></app-button>
-        <app-dropdown-button-component
-          icon="EllipsisVertical"
-          label="Export"
-          [options]="options"
-        ></app-dropdown-button-component>
+        @if(histories().body.length > 0){
+          <app-a
+            label="Ver Grafico"
+            url="/account-chart/1"
+          ></app-a>
+          <app-dropdown-button-component
+            label="Export"
+            [options]="options"
+          ></app-dropdown-button-component>
+        }
       </div>
     </div>
     <div card-body>

@@ -18,7 +18,7 @@ export class TableComponentComponent implements OnInit {
   @Input() options : OptionsInterface[] = [];
   @Input({ required: false }) table = signal<TableInterface>({
     headers: [],
-    body: [],
+    body: [] as unknown[][],
   });
 
   constructor() {}

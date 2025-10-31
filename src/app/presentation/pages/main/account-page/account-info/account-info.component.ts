@@ -1,3 +1,4 @@
+import { generateHistoriesPdf } from './pdf/histories_pdf';
 import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { safeParseInt } from '../../../../helpers/number-helper';
@@ -14,10 +15,10 @@ import { Status } from '../../../../enum/status-enum';
 import { LoadingComponent } from "../../../../../shared/components/loading-component/loading.component";
 import { GetHistoriesUseCase } from '../../../../../core/use-cases/history/get-histories.usecase';
 import { HistoryModel } from '../../../../../core/models/history-model';
-import { NumberMaskFormatPipe } from '../../../../pipe/number-mask-format/number-mask-format.pipe';
-import Decimal from 'decimal.js';
 import { TableComponentComponent, TableInterface } from "../../../../../shared/components/table-component/table-component.component";
 import { DropdownButtonComponentComponent, OptionsInterface } from "../../../../../shared/components/dropdown-button-component/dropdown-button-component.component";
+import Decimal from 'decimal.js';
+import { AComponentComponent } from "../../../../../shared/components/a-component/a-component.component";
 
 @Component({
   selector: 'app-account-info',
@@ -33,7 +34,8 @@ import { DropdownButtonComponentComponent, OptionsInterface } from "../../../../
     LoadingComponent,
     TableComponentComponent,
     DropdownButtonComponentComponent,
-  ],
+    AComponentComponent
+],
 })
 export class AccountInfoComponent implements OnInit {
   @ViewChild(ModalHistoryComponent) modal!: ModalHistoryComponent;
@@ -54,12 +56,21 @@ export class AccountInfoComponent implements OnInit {
     {
       description: 'Excel',
       icon: 'file-text',
-      onClick: () => {},
+      onClick: () => {
+      },
     },
     {
       description: 'Pdf',
       icon: 'file-text',
-      onClick: () => {},
+      onClick: () => {
+        generateHistoriesPdf({
+          account: this.account()!,
+          table: {
+            headers: this.histories().headers.slice(1),
+            body: this.histories().body.map((b) => b.slice(1)),
+          },
+        });
+      },
     },
   ];
 
@@ -129,4 +140,6 @@ export class AccountInfoComponent implements OnInit {
       return prev;
     });
   };
+
+
 }
