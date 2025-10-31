@@ -6,7 +6,7 @@ import { HistoryFormBuilder } from '../../history-form';
 import { ɵInternalFormsSharedModule, ReactiveFormsModule } from "@angular/forms";
 import { CreateHistoryUseCase } from '../../../../../../../core/use-cases/history/create-history.usecase';
 import { errorHelpers } from '../../../../../../helpers/errors-helper';
-import { mapFormToDto } from '../../../../../../helpers/map-from-to-dto';
+import { mapFormToDto } from '../../../../../../helpers/map-from-to-dto-helper';
 import { AccountForm } from '../../../../../../../core/entities/account-form';
 import { HistoryForm } from '../../../../../../../core/entities/history-form';
 import { HistoryModel } from '../../../../../../../core/models/history-model';

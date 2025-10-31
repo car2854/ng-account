@@ -2,7 +2,6 @@ import { TableInterface } from './../../../../../shared/components/table-compone
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CardComponent } from "../../../../../shared/components/card-component/card.component";
 import { TableComponentComponent } from "../../../../../shared/components/table-component/table-component.component";
-import { ButtonComponent } from "../../../../../shared/components/button-component/button.component";
 import { AComponentComponent } from "../../../../../shared/components/a-component/a-component.component";
 import { GetMembersUseCase } from '../../../../../core/use-cases/member/get-members.usecase';
 import { errorHelpers } from '../../../../helpers/errors-helper';
@@ -34,8 +33,8 @@ export class UsersComponent implements OnInit {
     {
       icon: 'Edit',
       description: 'Edit',
-      onClick(id) {
-        console.log(id);
+      onClick: (id) => {
+        this.router.navigateByUrl(`/user/${id}`);
       },
     },
   ];

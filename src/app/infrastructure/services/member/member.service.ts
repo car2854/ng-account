@@ -1,8 +1,8 @@
+import { MemberForm } from './../../../core/entities/member-form';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
-import { getHeadersWithToken } from '../../../presentation/helpers/get-token';
-import { MemberForm } from '../../../core/entities/member-form';
+import { getHeadersWithToken } from '../../../presentation/helpers/get-token-helper';
 import { MemberModel } from '../../../core/models/member-model';
 
 @Injectable({
@@ -22,6 +22,10 @@ export class MemberService {
   });
 
   public getMember = (memberId: number) => this.httpClient.get<MemberModel>(`${this.url}/${memberId}`, {
+    headers: getHeadersWithToken()
+  });
+
+  public updateMember = (memberId: number, memberForm: MemberForm) => this.httpClient.put<MemberModel>(`${this.url}/${memberId}`, memberForm, {
     headers: getHeadersWithToken()
   });
 

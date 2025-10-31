@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Status } from '../../../enum/status-enum';
 import { IsLoadingPipe } from '../../../pipe/loading/is-loading.pipe';
 import { RegisterUseCase } from '../../../../core/use-cases/auth/register.usecase';
-import { mapFormToDto } from '../../../helpers/map-from-to-dto';
+import { mapFormToDto } from '../../../helpers/map-from-to-dto-helper';
 import { RegisterForm } from '../../../../core/entities/register-form';
 import { HttpErrorResponse } from '@angular/common/http';
 import { errorHelpers } from '../../../helpers/errors-helper';

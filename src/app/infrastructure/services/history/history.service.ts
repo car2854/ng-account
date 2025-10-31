@@ -2,7 +2,7 @@ import { HistoryForm } from './../../../core/entities/history-form';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
-import { getHeadersWithToken } from '../../../presentation/helpers/get-token';
+import { getHeadersWithToken } from '../../../presentation/helpers/get-token-helper';
 import { HistoryModel } from '../../../core/models/history-model';
 
 @Injectable({

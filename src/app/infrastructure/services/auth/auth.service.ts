@@ -1,4 +1,4 @@
-import { getHeadersWithToken, getToken } from './../../../presentation/helpers/get-token';
+import { getHeadersWithToken, getToken } from '../../../presentation/helpers/get-token-helper';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';

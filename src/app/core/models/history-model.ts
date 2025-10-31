@@ -5,9 +5,9 @@ export class HistoryModel {
     public id: number,
     public amount: Decimal,
     public description: number,
-    public date: Date,
-    public createdAt: Date,
-    public deletedAt: Date,
+    public date: string,
+    public createdAt: string,
+    public deletedAt: string,
     public accountId: number
   ) {}
 }

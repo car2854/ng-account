@@ -13,6 +13,7 @@
         placeholder="Initial Amount"
         formControlName="initialAmount"
         type="number"
+        [readonly]="accountId() != 0"
       ></app-form-input>
 
       <app-form-input

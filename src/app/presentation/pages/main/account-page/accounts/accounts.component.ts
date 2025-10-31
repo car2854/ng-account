@@ -32,9 +32,8 @@ export class AccountsComponent implements OnInit {
     {
       icon: 'Edit',
       description: 'Edit',
-      onClick(id) {
-        console.log(id);
-
+      onClick: (id) => {
+        this.router.navigateByUrl(`/account/${id}`);
       },
     }
   ]

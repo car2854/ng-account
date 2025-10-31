@@ -2,7 +2,7 @@ import { AccountForm } from './../../../core/entities/account-form';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
-import { getHeadersWithToken } from '../../../presentation/helpers/get-token';
+import { getHeadersWithToken } from '../../../presentation/helpers/get-token-helper';
 import { AccountModel } from '../../../core/models/account-model';
 
 @Injectable({

@@ -7,6 +7,7 @@ export class AccountModel {
     public title: string,
     public description: string,
     public amount: Decimal,
-    public createdAt: Date,
+    public createdAt: string,
+    public isActive: boolean
   ) {}
 }

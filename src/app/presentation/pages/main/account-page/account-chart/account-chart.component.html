@@ -1,3 +1,15 @@
-<app-card
-  title="History"
-></app-card>
+@if (isLoading()) {
+
+}@else{
+
+  <app-card
+    title="History"
+  >
+    <div card-body>
+      <app-line-chart-component
+        [data]="data()"
+      ></app-line-chart-component>
+    </div>
+  </app-card>
+
+}

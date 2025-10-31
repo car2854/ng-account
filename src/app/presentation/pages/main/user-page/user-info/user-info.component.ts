@@ -17,8 +17,8 @@ import { DateFormatPipe } from '../../../../pipe/date-format/date-format.pipe';
 })
 export class UserInfoComponent implements OnInit {
   private usecase = inject(GetMemberUserCase);
-  private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   public member = signal<MemberModel | null>(null);
 

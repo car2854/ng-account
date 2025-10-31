@@ -6,7 +6,7 @@ import { ButtonComponent } from "../../../../shared/components/button-component/
 import { RouterLink, Router } from '@angular/router';
 import { LoginUseCase } from '../../../../core/use-cases/auth/login.usecase';
 import { LoginForm } from '../../../../core/entities/login-form';
-import { mapFormToDto } from '../../../helpers/map-from-to-dto';
+import { mapFormToDto } from '../../../helpers/map-from-to-dto-helper';
 import { Status } from '../../../enum/status-enum';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IsLoadingPipe } from '../../../pipe/loading/is-loading.pipe';

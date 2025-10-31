@@ -3,6 +3,6 @@ export class UserModel {
     public id: number,
     public name: string,
     public email: string,
-    public createdAt: Date
+    public createdAt: string
   ) {}
 }
