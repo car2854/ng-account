@@ -19,12 +19,19 @@ export class AccountsComponent implements OnInit {
 
   public table = signal<TableInterface>({
     headers: ['Id', 'Title', 'Description', 'Amount', 'CreatedAt'],
-    body: []
+    body: [],
   });
-  public options : OptionsInterface[] = [
+  public options: OptionsInterface[] = [
     {
       icon: 'Delete',
-      description: 'See',
+      description: 'Transactions',
+      onClick: (id) => {
+        this.router.navigateByUrl(`/account-transactions/${id}`);
+      },
+    },
+    {
+      icon: 'Delete',
+      description: 'Info',
       onClick: (id) => {
         this.router.navigateByUrl(`/account-info/${id}`);
       },
@@ -35,8 +42,8 @@ export class AccountsComponent implements OnInit {
       onClick: (id) => {
         this.router.navigateByUrl(`/account/${id}`);
       },
-    }
-  ]
+    },
+  ];
 
   constructor() {}
 
@@ -49,13 +56,7 @@ export class AccountsComponent implements OnInit {
         this.table.update((prev) => {
           return {
             headers: prev.headers,
-            body: value.map((v) => [
-              v.id,
-              v.title,
-              v.description,
-              v.amount,
-              v.createdAt,
-            ]),
+            body: value.map((v) => [v.id, v.title, v.description, v.amount, v.createdAt]),
           };
         });
       },

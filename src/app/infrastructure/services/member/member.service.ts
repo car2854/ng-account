@@ -13,7 +13,7 @@ export class MemberService {
   private url = `${this.baseUrl}/member`;
   private httpClient = inject(HttpClient);
 
-  public createMember = (member: MemberForm) => this.httpClient.post(`${this.url}`, member, {
+  public createMember = (member: MemberForm) => this.httpClient.post<MemberModel>(`${this.url}`, member, {
     headers: getHeadersWithToken()
   });
 

@@ -7,8 +7,9 @@ import { UserComponent } from "./user-page/user/user.component";
 import { AccountComponent } from "./account-page/account/account.component";
 import { authGuard } from "../../guards/auth-guard";
 import { UserInfoComponent } from "./user-page/user-info/user-info.component";
-import { AccountInfoComponent } from "./account-page/account-info/account-info.component";
 import { AccountChartComponent } from "./account-page/account-chart/account-chart.component";
+import { AccountTransactionsComponent } from "./account-page/account-transactions/account-transactions.component";
+import { AccountInfoComponent } from "./account-page/account-info/account-info.component";
 
 export const MAIN_ROUTES: Routes = [
   {
@@ -24,6 +25,7 @@ export const MAIN_ROUTES: Routes = [
       { path: 'accounts', component: AccountsComponent },
       { path: 'account', component: AccountComponent },
       { path: 'account/:id', component: AccountComponent },
+      { path: 'account-transactions/:id', component: AccountTransactionsComponent },
       { path: 'account-info/:id', component: AccountInfoComponent },
       { path: 'account-chart/:id', component: AccountChartComponent },
     ],

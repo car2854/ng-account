@@ -1,3 +1,4 @@
+import { GetMembersUseCase } from './../../../../../core/use-cases/member/get-members.usecase';
 import { CreateAccountUseCase } from './../../../../../core/use-cases/account/create-account.usecase';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CardComponent } from "../../../../../shared/components/card-component/card.component";
@@ -12,6 +13,8 @@ import { AccountForm } from '../../../../../core/entities/account-form';
 import { GetAccountUseCase } from '../../../../../core/use-cases/account/get-account.usecase';
 import { ActivatedRoute } from '@angular/router';
 import { safeParseInt } from '../../../../helpers/number-helper';
+import { GetMemberUserCase } from '../../../../../core/use-cases/member/get-member.usecase';
+import { MemberModel } from '../../../../../core/models/member-model';
 
 @Component({
   selector: 'app-account',
@@ -29,31 +32,50 @@ export class AccountComponent implements OnInit {
   private accountFB = inject(AccountFormBuilder);
   private createUseCase = inject(CreateAccountUseCase);
   private getUseCase = inject(GetAccountUseCase);
+  private getMembersUseCase = inject(GetMembersUseCase)
   private route = inject(ActivatedRoute);
   public form = this.accountFB.build();
+
+  public members = signal<MemberModel[]>([]);
 
   public accountId = signal(0);
 
   constructor() {}
 
+  private getMembers = () => {
+    this.getMembersUseCase.execute().subscribe({
+      error: (err) => {
+        errorHelpers(err);
+      },
+      next: (value) => {
+        this.members.update(_ => value);
+      },
+    });
+  }
+
+  private getAccount = (id: number) => {
+    this.getUseCase.execute(id).subscribe({
+      error: (err) => {
+        errorHelpers(err);
+      },
+      next: (value) => {
+        this.accountId.update((_) => value.id);
+        this.form.setValue({
+          description: value.description,
+          title: value.title,
+          isActive: value.isActive,
+          initialAmount: value.amount,
+        });
+      },
+    });
+  }
+
   ngOnInit() {
     const id = safeParseInt(this.route.snapshot.paramMap.get('id'));
     if (id != null) {
-      this.getUseCase.execute(id).subscribe({
-        error: (err) => {
-          errorHelpers(err);
-        },
-        next: (value) => {
-          this.accountId.update(_ => value.id);
-          this.form.setValue({
-            description: value.description,
-            title: value.title,
-            isActive: value.isActive,
-            initialAmount: value.amount,
-          });
-        },
-      });
+      this.getAccount(id);
     }
+    this.getMembers();
   }
 
   public save = () => {

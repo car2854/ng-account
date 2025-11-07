@@ -1,52 +1,29 @@
-@if(isLoading()){
-
+@if (statusAccount() | isLoading){
   <app-loading-component></app-loading-component>
-
-}@else {
-  <app-card [title]="account()?.title ?? ''">
-    <div card-header>
-      <p>{{account()?.createdAt | dateFormat}}</p>
-    </div>
+} @else {
+  <app-card
+    [title]="account()!.title"
+  >
     <div card-body>
-      <p>{{account()?.description ?? ''}}</p>
+      <p>{{account()!.description}}</p>
       <div class="align-end">
-        <app-amount-component
-          [amount]="account()?.amount"
-        ></app-amount-component>
+        <p>{{account()!.createdAt}}</p>
       </div>
     </div>
   </app-card>
 
-  <app-card title="History">
+  <app-card title="Users">
+
     <div card-header>
-      <div class="card-header-buttons">
-        <app-button
-          label="New"
-          (click)="openModal()"
-        ></app-button>
-        @if(histories().body.length > 0){
-          <app-a
-            label="Ver Grafico"
-            url="/account-chart/1"
-          ></app-a>
-          <app-dropdown-button-component
-            label="Export"
-            [options]="options"
-          ></app-dropdown-button-component>
-        }
-      </div>
+
     </div>
+
     <div card-body>
-      <app-table
-        [table]="histories"
-      ></app-table>
+
+
+
     </div>
+
   </app-card>
-
-
-  <app-modal-history-component
-    [accountId]="account()!.id"
-    (onNewHistory)="onNewHistory($event)"
-  ></app-modal-history-component>
-
 }
+

@@ -11,7 +11,7 @@ import { errorHelpers } from '../../../../helpers/errors-helper';
 import { Status } from '../../../../enum/status-enum';
 import { IsLoadingPipe } from '../../../../pipe/loading/is-loading.pipe';
 import { safeParseInt } from '../../../../helpers/number-helper';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GetMemberUserCase } from '../../../../../core/use-cases/member/get-member.usecase';
 import { UpdateMemberUseCase } from '../../../../../core/use-cases/member/update-member.usecase';
 
@@ -34,6 +34,7 @@ export class UserComponent implements OnInit {
   private getUseCase = inject(GetMemberUserCase);
 
   public route = inject(ActivatedRoute);
+  public router = inject(Router);
   public form = this.userFB.build();
 
   public status = signal<Status>(Status.INITIAL);
@@ -75,6 +76,7 @@ export class UserComponent implements OnInit {
         },
         next: (value) => {
           this.status.update((_) => Status.SUCCESS);
+          this.router.navigateByUrl(`/user-info/${value.id}`);
         },
       });
     }else{
@@ -85,6 +87,7 @@ export class UserComponent implements OnInit {
         },
         next: (value) => {
           this.status.update((_) => Status.SUCCESS);
+          this.router.navigateByUrl(`/user-info/${value.id}`);
         },
       });
     }
