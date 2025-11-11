@@ -86,7 +86,16 @@ export class AccountInfoComponent {
     this.getMembers();
   }
 
-  public onSelectedId = ({ id, name }: ComboBoxInterface) => {};
+  public onSelectedId = ({ id, name }: ComboBoxInterface) => {
+    this.tableMembers.update((prev) => {
+      return {
+        headers: prev.headers,
+        body: [
+          ...prev.body,
+        ]
+      }
+    })
+  };
 
   constructor() {}
 }

@@ -21,7 +21,7 @@
             <td>
               <app-dropdown-button-component
                 icon="EllipsisVertical"
-                [id]="table.body[$index][0]"
+                [id]="getId(table.body[$index])"
                 [options]="options"
               ></app-dropdown-button-component>
             </td>

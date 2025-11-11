@@ -129,7 +129,7 @@ export class AccountTransactionsComponent {
     this.histories.update((prev) => {
       return {
         headers: prev.headers,
-        body: [...prev.body, newHistory],
+        body: [...prev.body, [newHistory]],
       };
     });
     this.account.update((prev) => {

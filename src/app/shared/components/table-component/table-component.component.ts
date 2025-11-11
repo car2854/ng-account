@@ -2,9 +2,9 @@ import { Component, Input, OnInit, signal } from '@angular/core';
 import { XIcon, LucideAngularModule } from 'lucide-angular';
 import { DropdownButtonComponentComponent, OptionsInterface } from "../dropdown-button-component/dropdown-button-component.component";
 
-export interface TableInterface{
-  headers: string[]
-  body: any[],
+export interface TableInterface {
+  headers: string[];
+  body: unknown[][];
 }
 
 @Component({
@@ -25,6 +25,10 @@ export class TableComponentComponent implements OnInit {
 
   ngOnInit() {}
 
-  getHeader = () => (this.table.headers.length == 0 ? [] : this.table.headers.slice(1));
-  getBody = () => (this.table.body.length == 0 ? [] : this.table.body.map((m) => m.slice(1)));
+  public getHeader = () => (this.table.headers.length == 0 ? [] : this.table.headers.slice(1));
+  public getBody = () => (this.table.body.length == 0 ? [] : this.table.body.map((m) => m.slice(1)));
+  public getId = (data: unknown[]) : number => {
+    if (typeof data[0] === 'number') return data[0];
+    else return 0;
+  }
 }
