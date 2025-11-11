@@ -28,11 +28,13 @@
   width: 100%;
   background-color: var(--surface);
   visibility: hidden;
+  border: 1px solid var(--text-secondary);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .combo-box .options .option{
   padding: 12px 6px;
-  border-radius: 8px;
 }
 
 .combo-box .options .option:hover{
