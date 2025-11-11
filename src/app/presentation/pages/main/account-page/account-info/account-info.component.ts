@@ -1,3 +1,4 @@
+import { OptionsInterface } from './../../../../../shared/components/dropdown-button-component/dropdown-button-component.component';
 import { Component, inject, signal, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { safeParseInt } from '../../../../helpers/number-helper';
@@ -40,6 +41,20 @@ export class AccountInfoComponent {
   public statusAccount = signal<Status>(Status.INITIAL);
 
   public membersOptions = signal<ComboBoxInterface[]>([]);
+  public optionsMembers = signal<OptionsInterface[]>([
+    {
+      icon: '',
+      description: 'Eliminar',
+      onClick: (id) => {
+        this.tableMembers.update((prev) => {
+          return {
+            headers: prev.headers,
+            body: [...prev.body.filter((b) => b[0] != id).map(_ => _)],
+          };
+        });
+      },
+    }
+  ]);
   public tableMembers = signal<TableInterface>({
     headers: ['Id', 'Name'],
     body: [],
@@ -101,5 +116,4 @@ export class AccountInfoComponent {
       };
     });
   };
-
 }
