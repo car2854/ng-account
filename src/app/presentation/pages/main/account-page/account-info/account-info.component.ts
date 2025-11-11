@@ -11,33 +11,36 @@ import { Status } from '../../../../enum/status-enum';
 import { CardComponent } from "../../../../../shared/components/card-component/card.component";
 import { IsLoadingPipe } from '../../../../pipe/loading/is-loading.pipe';
 import { LoadingComponent } from "../../../../../shared/components/loading-component/loading.component";
-import { FormInputComponent } from "../../../../../shared/components/form-input-component/form-input.component";
+import { id } from '@swimlane/ngx-charts';
+import { ComboBoxInterface, ComboBoxComponent } from '../../../../../shared/components/combo-box-component/combo-box';
 
 @Component({
   selector: 'app-account-info',
   templateUrl: './account-info.component.html',
   styleUrls: ['./account-info.component.css'],
-  imports: [ReactiveFormsModule, CardComponent, IsLoadingPipe, LoadingComponent, FormInputComponent],
+  imports: [ReactiveFormsModule, CardComponent, IsLoadingPipe, LoadingComponent, ComboBoxComponent],
 })
 export class AccountInfoComponent {
   private getAccountUseCase = inject(GetAccountUseCase);
   private getMembersUseCase = inject(GetMembersUseCase);
   private route = inject(ActivatedRoute);
-  private router = inject(Router)
+  private router = inject(Router);
 
   public account = signal<AccountModel | null>(null);
   public statusAccount = signal<Status>(Status.INITIAL);
 
+  public membersOptions = signal<ComboBoxInterface[]>([]);
+
   private getAccount = (id: number) => {
-    this.statusAccount.update(_ => Status.LOADING);
+    this.statusAccount.update((_) => Status.LOADING);
     this.getAccountUseCase.execute(id).subscribe({
       error: (err) => {
         errorHelpers(err);
-        this.statusAccount.update(_ => Status.ERROR);
+        this.statusAccount.update((_) => Status.ERROR);
       },
       next: (value: AccountModel) => {
-        this.account.update(_ => value);
-        this.statusAccount.update(_ => Status.SUCCESS);
+        this.account.update((_) => value);
+        this.statusAccount.update((_) => Status.SUCCESS);
       },
     });
   };
@@ -48,10 +51,15 @@ export class AccountInfoComponent {
         errorHelpers(err);
       },
       next: (value) => {
-
+        this.membersOptions.update((_) => value.map((v) => {
+          return {
+            id: v.id,
+            name: v.name
+          };
+        }));
       },
-    })
-  }
+    });
+  };
 
   ngOnInit() {
     const id = safeParseInt(this.route.snapshot.paramMap.get('id'));

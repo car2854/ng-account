@@ -16,7 +16,7 @@ type InputType = 'text' | 'password' | 'email' | 'text-area' | 'number';
   styleUrls: ['./form-input.component.css'],
 })
 export class FormInputComponent {
-  @Input({ required: true }) label: string = '';
+  @Input() label: string = '';
   @Input() type: InputType = 'text';
   @Input() placeholder: string = '';
   @Input() readonly: boolean = false;
