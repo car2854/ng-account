@@ -11,9 +11,10 @@ import { Status } from '../../../../enum/status-enum';
 import { CardComponent } from "../../../../../shared/components/card-component/card.component";
 import { IsLoadingPipe } from '../../../../pipe/loading/is-loading.pipe';
 import { LoadingComponent } from "../../../../../shared/components/loading-component/loading.component";
-import { id } from '@swimlane/ngx-charts';
 import { ComboBoxInterface, ComboBoxComponent } from '../../../../../shared/components/combo-box-component/combo-box';
 import { TableComponentComponent, TableInterface } from "../../../../../shared/components/table-component/table-component.component";
+import { ModalComponentComponent } from "../../../../../shared/components/modal-component/modal-component.component";
+import { ButtonComponent } from "../../../../../shared/components/button-component/button.component";
 
 @Component({
   selector: 'app-account-info',
@@ -26,6 +27,7 @@ import { TableComponentComponent, TableInterface } from "../../../../../shared/c
     LoadingComponent,
     ComboBoxComponent,
     TableComponentComponent,
+    ButtonComponent,
   ],
 })
 export class AccountInfoComponent {
@@ -40,7 +42,7 @@ export class AccountInfoComponent {
   public membersOptions = signal<ComboBoxInterface[]>([]);
   public tableMembers = signal<TableInterface>({
     headers: ['Id', 'Name'],
-    body: []
+    body: [],
   });
 
   private getAccount = (id: number) => {
@@ -75,6 +77,8 @@ export class AccountInfoComponent {
     });
   };
 
+  constructor() {}
+
   ngOnInit() {
     const id = safeParseInt(this.route.snapshot.paramMap.get('id'));
     if (id == null) {
@@ -87,15 +91,15 @@ export class AccountInfoComponent {
   }
 
   public onSelectedId = ({ id, name }: ComboBoxInterface) => {
+    if (this.tableMembers().body.some((v) => v[0] == id)) {
+      return;
+    }
     this.tableMembers.update((prev) => {
       return {
         headers: prev.headers,
-        body: [
-          ...prev.body,
-        ]
-      }
-    })
+        body: [...prev.body, [id, name]],
+      };
+    });
   };
 
-  constructor() {}
 }

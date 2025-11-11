@@ -5,13 +5,16 @@ table{
 }
 
 table thead tr th{
-  padding-block: 8px;
+  /* padding-block: 8px; */
   color: var(--text-secondary);
   text-align: start;
 }
 
+th{
+  padding-bottom: 18px;
+}
 
-th, td{
+td{
   border-bottom: 1px solid var(--text-secondary-25);
   height: 50px;
 }

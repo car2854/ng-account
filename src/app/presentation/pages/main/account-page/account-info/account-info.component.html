@@ -12,25 +12,29 @@
     </div>
   </app-card>
 
-  <app-card title="Users">
 
-    <div card-header>
-
-    </div>
+  <app-card title="New user">
 
     <div card-body>
-
       <app-combo-box-component
         [options]="membersOptions()"
         (idSelected)="onSelectedId($event)"
       ></app-combo-box-component>
+    </div>
+  </app-card>
+
+  <app-card title="Users">
+
+    <div card-body>
+
+      <app-table
+        [table]="tableMembers()"
+      ></app-table>
 
     </div>
 
-    <app-table
-      [table]="tableMembers()"
-    ></app-table>
 
   </app-card>
+
 }
 
