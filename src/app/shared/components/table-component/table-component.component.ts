@@ -15,16 +15,16 @@ export interface TableInterface{
 })
 export class TableComponentComponent implements OnInit {
   readonly XIcon = XIcon;
-  @Input() options : OptionsInterface[] = [];
-  @Input({ required: false }) table = signal<TableInterface>({
+  @Input() options: OptionsInterface[] = [];
+  @Input({ required: false }) table: TableInterface = {
     headers: [],
     body: [] as unknown[][],
-  });
+  };
 
   constructor() {}
 
   ngOnInit() {}
 
-  getHeader = () => (this.table().headers.length == 0 ? [] : this.table().headers.slice(1));
-  getBody = () => (this.table().body.length == 0 ? [] : this.table().body.map((m) => m.slice(1)));
+  getHeader = () => (this.table.headers.length == 0 ? [] : this.table.headers.slice(1));
+  getBody = () => (this.table.body.length == 0 ? [] : this.table.body.map((m) => m.slice(1)));
 }

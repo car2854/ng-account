@@ -13,12 +13,20 @@ import { IsLoadingPipe } from '../../../../pipe/loading/is-loading.pipe';
 import { LoadingComponent } from "../../../../../shared/components/loading-component/loading.component";
 import { id } from '@swimlane/ngx-charts';
 import { ComboBoxInterface, ComboBoxComponent } from '../../../../../shared/components/combo-box-component/combo-box';
+import { TableComponentComponent, TableInterface } from "../../../../../shared/components/table-component/table-component.component";
 
 @Component({
   selector: 'app-account-info',
   templateUrl: './account-info.component.html',
   styleUrls: ['./account-info.component.css'],
-  imports: [ReactiveFormsModule, CardComponent, IsLoadingPipe, LoadingComponent, ComboBoxComponent],
+  imports: [
+    ReactiveFormsModule,
+    CardComponent,
+    IsLoadingPipe,
+    LoadingComponent,
+    ComboBoxComponent,
+    TableComponentComponent,
+  ],
 })
 export class AccountInfoComponent {
   private getAccountUseCase = inject(GetAccountUseCase);
@@ -30,6 +38,10 @@ export class AccountInfoComponent {
   public statusAccount = signal<Status>(Status.INITIAL);
 
   public membersOptions = signal<ComboBoxInterface[]>([]);
+  public tableMembers = signal<TableInterface>({
+    headers: ['Id', 'Name'],
+    body: []
+  });
 
   private getAccount = (id: number) => {
     this.statusAccount.update((_) => Status.LOADING);
@@ -51,12 +63,14 @@ export class AccountInfoComponent {
         errorHelpers(err);
       },
       next: (value) => {
-        this.membersOptions.update((_) => value.map((v) => {
-          return {
-            id: v.id,
-            name: v.name
-          };
-        }));
+        this.membersOptions.update((_) =>
+          value.map((v) => {
+            return {
+              id: v.id,
+              name: v.name,
+            };
+          })
+        );
       },
     });
   };
@@ -71,6 +85,8 @@ export class AccountInfoComponent {
     this.getAccount(id);
     this.getMembers();
   }
+
+  public onSelectedId = ({ id, name }: ComboBoxInterface) => {};
 
   constructor() {}
 }

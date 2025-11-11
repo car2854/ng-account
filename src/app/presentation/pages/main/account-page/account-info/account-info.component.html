@@ -22,9 +22,14 @@
 
       <app-combo-box-component
         [options]="membersOptions()"
+        (idSelected)="onSelectedId($event)"
       ></app-combo-box-component>
 
     </div>
+
+    <app-table
+      [table]="tableMembers()"
+    ></app-table>
 
   </app-card>
 }

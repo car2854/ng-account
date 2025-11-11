@@ -1,4 +1,4 @@
-@if(table().body.length > 0){
+@if(table.body.length > 0){
   <table>
     <!-- <caption>Title table</caption> -->
     <thead>
@@ -21,7 +21,7 @@
             <td>
               <app-dropdown-button-component
                 icon="EllipsisVertical"
-                [id]="table().body[$index][0]"
+                [id]="table.body[$index][0]"
                 [options]="options"
               ></app-dropdown-button-component>
             </td>

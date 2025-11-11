@@ -1,8 +1,8 @@
 <div class="combo-box">
-  <app-form-input label=""></app-form-input>
-  <div>
-    @for (option of options; track $index) {
-      <div>{{option.name}}</div>
+  <input placeholder="Buscar..." type="text" [value]="value()" (input)="onChange($event)">
+  <div class="options">
+    @for (option of optionsFilter(); track $index) {
+      <div class="option" (click)="onSelect(option.id)">{{option.name}}</div>
     }
   </div>
 </div>

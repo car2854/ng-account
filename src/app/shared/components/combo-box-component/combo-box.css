@@ -1,0 +1,41 @@
+
+.combo-box{
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.combo-box input:placeholder-shown {
+  text-align: start;
+}
+
+.combo-box input {
+  text-align: start !important;
+  all: unset;
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--text-secondary);
+  box-sizing: border-box;
+}
+
+.combo-box input:focus + .options, .combo-box .options:active {
+  visibility: visible;
+}
+
+.combo-box .options{
+  position: absolute;
+  width: 100%;
+  background-color: var(--surface);
+  visibility: hidden;
+}
+
+.combo-box .options .option{
+  padding: 12px 6px;
+  border-radius: 8px;
+}
+
+.combo-box .options .option:hover{
+  background-color: var(--text-background-hover);
+  color: var(--text-hover);
+}
