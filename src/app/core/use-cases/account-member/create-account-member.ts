@@ -1,13 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Inject, Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment.development';
+import { inject, Injectable } from '@angular/core';
+import { AccountMemberService } from '../../../infrastructure/services/account-member/account-member';
+import { AccountMemberForm } from '../../entities/account-member-form';
 @Injectable({ providedIn: 'root' })
-class CreateAccountUseCase {
-  private baseUrl = environment.apiUrl;
-  private http = inject(HttpClient);
-  private url = `${this.baseUrl}/account_member`;
-
-  public createAccountMember = (accountId: number, memberId: number) => {
-    // this.http.post();
-  };
+export class CreateAccountMemberUseCase {
+  private service = inject(AccountMemberService);
+  public execute = (accountMemberForm: AccountMemberForm) =>
+    this.service.createAccountMember(accountMemberForm);
 }

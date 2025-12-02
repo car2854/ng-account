@@ -16,6 +16,8 @@ import { ComboBoxInterface, ComboBoxComponent } from '../../../../../shared/comp
 import { TableComponentComponent, TableInterface } from "../../../../../shared/components/table-component/table-component.component";
 import { ModalComponentComponent } from "../../../../../shared/components/modal-component/modal-component.component";
 import { ButtonComponent } from "../../../../../shared/components/button-component/button.component";
+import { CreateAccountUseCase } from '../../../../../core/use-cases/account/create-account.usecase';
+import { CreateAccountMemberUseCase } from '../../../../../core/use-cases/account-member/create-account-member';
 
 @Component({
   selector: 'app-account-info',
@@ -28,17 +30,18 @@ import { ButtonComponent } from "../../../../../shared/components/button-compone
     LoadingComponent,
     ComboBoxComponent,
     TableComponentComponent,
-    ButtonComponent,
   ],
 })
 export class AccountInfoComponent {
   private getAccountUseCase = inject(GetAccountUseCase);
   private getMembersUseCase = inject(GetMembersUseCase);
+  private createAccountMember = inject(CreateAccountMemberUseCase);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
   public account = signal<AccountModel | null>(null);
   public statusAccount = signal<Status>(Status.INITIAL);
+  public statusCreateAccountMemeber = signal<Status>(Status.INITIAL);
 
   public membersOptions = signal<ComboBoxInterface[]>([]);
   public optionsMembers = signal<OptionsInterface[]>([
@@ -49,11 +52,11 @@ export class AccountInfoComponent {
         this.tableMembers.update((prev) => {
           return {
             headers: prev.headers,
-            body: [...prev.body.filter((b) => b[0] != id).map(_ => _)],
+            body: [...prev.body.filter((b) => b[0] != id).map((_) => _)],
           };
         });
       },
-    }
+    },
   ]);
   public tableMembers = signal<TableInterface>({
     headers: ['Id', 'Name'],
@@ -109,11 +112,27 @@ export class AccountInfoComponent {
     if (this.tableMembers().body.some((v) => v[0] == id)) {
       return;
     }
-    this.tableMembers.update((prev) => {
-      return {
-        headers: prev.headers,
-        body: [...prev.body, [id, name]],
-      };
+
+    this.statusCreateAccountMemeber.update((_) => Status.LOADING);
+
+    this.createAccountMember.execute({
+      accountId: this.account()!.id,
+      amount: 0,
+      memberId: id
+    }).subscribe({
+      error: (err) => {
+        errorHelpers(err);
+        this.statusCreateAccountMemeber.update((_) => Status.ERROR);
+      },
+      complete: () => {
+        this.tableMembers.update((prev) => {
+          return {
+            headers: prev.headers,
+            body: [...prev.body, [id, name]],
+          };
+        });
+        this.statusCreateAccountMemeber.update((_) => Status.SUCCESS);
+      },
     });
   };
 }
