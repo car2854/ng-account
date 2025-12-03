@@ -18,6 +18,8 @@ import { ModalComponentComponent } from "../../../../../shared/components/modal-
 import { ButtonComponent } from "../../../../../shared/components/button-component/button.component";
 import { CreateAccountUseCase } from '../../../../../core/use-cases/account/create-account.usecase';
 import { CreateAccountMemberUseCase } from '../../../../../core/use-cases/account-member/create-account-member';
+import { GetAccountMembersUseCase } from '../../../../../core/use-cases/account-member/get-account-members';
+import { DeleteAccountMemberUseCase } from '../../../../../core/use-cases/account-member/delete-account-member';
 
 @Component({
   selector: 'app-account-info',
@@ -35,13 +37,17 @@ import { CreateAccountMemberUseCase } from '../../../../../core/use-cases/accoun
 export class AccountInfoComponent {
   private getAccountUseCase = inject(GetAccountUseCase);
   private getMembersUseCase = inject(GetMembersUseCase);
-  private createAccountMember = inject(CreateAccountMemberUseCase);
+  private createAccountMemberUseCase = inject(CreateAccountMemberUseCase);
+  private getAccountMembersUseCase = inject(GetAccountMembersUseCase);
+  private deleteAccountmemberUseCase = inject(DeleteAccountMemberUseCase);;
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
   public account = signal<AccountModel | null>(null);
   public statusAccount = signal<Status>(Status.INITIAL);
   public statusCreateAccountMemeber = signal<Status>(Status.INITIAL);
+  public statusGetAccountMembers = signal<Status>(Status.INITIAL);
+  public statusDeleteAccountMembers = signal<Status>(Status.INITIAL);
 
   public membersOptions = signal<ComboBoxInterface[]>([]);
   public optionsMembers = signal<OptionsInterface[]>([
@@ -49,12 +55,7 @@ export class AccountInfoComponent {
       icon: '',
       description: 'Eliminar',
       onClick: (id) => {
-        this.tableMembers.update((prev) => {
-          return {
-            headers: prev.headers,
-            body: [...prev.body.filter((b) => b[0] != id).map((_) => _)],
-          };
-        });
+        this.deleteAccountMember(this.account()!.id, id);
       },
     },
   ]);
@@ -77,6 +78,26 @@ export class AccountInfoComponent {
     });
   };
 
+  private getAccountMembers = (id: number) => {
+    this.statusGetAccountMembers.update((_) => Status.LOADING);
+    this.getAccountMembersUseCase.execute(id).subscribe({
+      error: (err) => {
+        errorHelpers(err);
+        this.statusGetAccountMembers.update((_) => Status.ERROR);
+      },
+      next: (value) => {
+        this.tableMembers.update((prev) => {
+          return {
+            headers: this.tableMembers().headers,
+            body: value.map((v) => [v.id, v.name]),
+          };
+        });
+        // this.members.update((_) => value);
+        this.statusGetAccountMembers.update((_) => Status.SUCCESS);
+      },
+    });
+  };
+
   private getMembers = () => {
     this.getMembersUseCase.execute().subscribe({
       error: (err) => {
@@ -95,6 +116,25 @@ export class AccountInfoComponent {
     });
   };
 
+  private deleteAccountMember = (accountId: number, memberId: number) => {
+    this.statusDeleteAccountMembers.update(_ => Status.LOADING);
+    this.deleteAccountmemberUseCase.execute(accountId, memberId).subscribe({
+      error: (err) => {
+        errorHelpers(err);
+        this.statusDeleteAccountMembers.update(_ => Status.ERROR);
+      },
+      complete: () => {
+        this.statusDeleteAccountMembers.update(_ => Status.SUCCESS);
+        this.tableMembers.update((prev) => {
+          return {
+            headers: prev.headers,
+            body: [...prev.body.filter((b) => b[0] != memberId).map((_) => _)],
+          };
+        });
+      },
+    })
+  }
+
   constructor() {}
 
   ngOnInit() {
@@ -105,6 +145,7 @@ export class AccountInfoComponent {
     }
 
     this.getAccount(id);
+    this.getAccountMembers(id);
     this.getMembers();
   }
 
@@ -115,24 +156,26 @@ export class AccountInfoComponent {
 
     this.statusCreateAccountMemeber.update((_) => Status.LOADING);
 
-    this.createAccountMember.execute({
-      accountId: this.account()!.id,
-      amount: 0,
-      memberId: id
-    }).subscribe({
-      error: (err) => {
-        errorHelpers(err);
-        this.statusCreateAccountMemeber.update((_) => Status.ERROR);
-      },
-      complete: () => {
-        this.tableMembers.update((prev) => {
-          return {
-            headers: prev.headers,
-            body: [...prev.body, [id, name]],
-          };
-        });
-        this.statusCreateAccountMemeber.update((_) => Status.SUCCESS);
-      },
-    });
+    this.createAccountMemberUseCase
+      .execute({
+        accountId: this.account()!.id,
+        amount: 0,
+        memberId: id,
+      })
+      .subscribe({
+        error: (err) => {
+          errorHelpers(err);
+          this.statusCreateAccountMemeber.update((_) => Status.ERROR);
+        },
+        complete: () => {
+          this.tableMembers.update((prev) => {
+            return {
+              headers: prev.headers,
+              body: [...prev.body, [id, name]],
+            };
+          });
+          this.statusCreateAccountMemeber.update((_) => Status.SUCCESS);
+        },
+      });
   };
 }
