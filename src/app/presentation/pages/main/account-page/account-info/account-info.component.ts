@@ -18,7 +18,6 @@ import { ModalComponentComponent } from "../../../../../shared/components/modal-
 import { ButtonComponent } from "../../../../../shared/components/button-component/button.component";
 import { CreateAccountUseCase } from '../../../../../core/use-cases/account/create-account.usecase';
 import { CreateAccountMemberUseCase } from '../../../../../core/use-cases/account-member/create-account-member';
-import { GetAccountMembersUseCase } from '../../../../../core/use-cases/account-member/get-account-members';
 import { DeleteAccountMemberUseCase } from '../../../../../core/use-cases/account-member/delete-account-member';
 
 @Component({
@@ -38,7 +37,6 @@ export class AccountInfoComponent {
   private getAccountUseCase = inject(GetAccountUseCase);
   private getMembersUseCase = inject(GetMembersUseCase);
   private createAccountMemberUseCase = inject(CreateAccountMemberUseCase);
-  private getAccountMembersUseCase = inject(GetAccountMembersUseCase);
   private deleteAccountmemberUseCase = inject(DeleteAccountMemberUseCase);;
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -46,7 +44,6 @@ export class AccountInfoComponent {
   public account = signal<AccountModel | null>(null);
   public statusAccount = signal<Status>(Status.INITIAL);
   public statusCreateAccountMemeber = signal<Status>(Status.INITIAL);
-  public statusGetAccountMembers = signal<Status>(Status.INITIAL);
   public statusDeleteAccountMembers = signal<Status>(Status.INITIAL);
 
   public membersOptions = signal<ComboBoxInterface[]>([]);
@@ -73,30 +70,17 @@ export class AccountInfoComponent {
       },
       next: (value: AccountModel) => {
         this.account.update((_) => value);
+        this.tableMembers.update((prev) => {
+          return {
+            headers: this.tableMembers().headers,
+            body: value.accountMembers.map((v) => [v.member.id, v.member.name]),
+          };
+        });
         this.statusAccount.update((_) => Status.SUCCESS);
       },
     });
   };
 
-  private getAccountMembers = (id: number) => {
-    this.statusGetAccountMembers.update((_) => Status.LOADING);
-    this.getAccountMembersUseCase.execute(id).subscribe({
-      error: (err) => {
-        errorHelpers(err);
-        this.statusGetAccountMembers.update((_) => Status.ERROR);
-      },
-      next: (value) => {
-        this.tableMembers.update((prev) => {
-          return {
-            headers: this.tableMembers().headers,
-            body: value.map((v) => [v.id, v.name]),
-          };
-        });
-        // this.members.update((_) => value);
-        this.statusGetAccountMembers.update((_) => Status.SUCCESS);
-      },
-    });
-  };
 
   private getMembers = () => {
     this.getMembersUseCase.execute().subscribe({
@@ -145,7 +129,7 @@ export class AccountInfoComponent {
     }
 
     this.getAccount(id);
-    this.getAccountMembers(id);
+    // this.getAccountMembers(id);
     this.getMembers();
   }
 

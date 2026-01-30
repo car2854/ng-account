@@ -18,11 +18,6 @@ export class AccountMemberService {
       headers: getHeadersWithToken(),
     });
 
-  public getAccountMembers = (accountId: number) =>
-    this.http.get<MemberModel[]>(`${this.url}/${accountId}`, {
-      headers: getHeadersWithToken(),
-    });
-
   public deleteAccountMembers = (accountId: number, memberId: number) =>
     this.http.delete(`${this.url}/${accountId}/${memberId}`, {
       headers: getHeadersWithToken(),

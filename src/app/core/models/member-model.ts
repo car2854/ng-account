@@ -2,7 +2,7 @@ export class MemberModel {
   constructor(
     public id: number,
     public name: string,
-    public createdAt: string,
+    public createdAt: Date,
     public referenceUserId: number
   ) {}
 }

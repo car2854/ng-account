@@ -74,8 +74,8 @@ export class AccountComponent implements OnInit {
     const id = safeParseInt(this.route.snapshot.paramMap.get('id'));
     if (id != null) {
       this.getAccount(id);
+      this.getMembers();
     }
-    this.getMembers();
   }
 
   public save = () => {
