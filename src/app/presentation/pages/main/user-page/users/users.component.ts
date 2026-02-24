@@ -1,8 +1,7 @@
-import { TableInterface } from './../../../../../shared/components/table-component/table-component.component';
+import { AComponentComponent } from './../../../../../shared/components/a-component/a-component.component';
+import { TableComponent, TableInterface } from './../../../../../shared/components/table-component/table.component';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CardComponent } from "../../../../../shared/components/card-component/card.component";
-import { TableComponentComponent } from "../../../../../shared/components/table-component/table-component.component";
-import { AComponentComponent } from "../../../../../shared/components/a-component/a-component.component";
 import { GetMembersUseCase } from '../../../../../core/use-cases/member/get-members.usecase';
 import { errorHelpers } from '../../../../helpers/errors-helper';
 import { OptionsInterface } from '../../../../../shared/components/dropdown-button-component/dropdown-button-component.component';
@@ -12,7 +11,7 @@ import { Router } from '@angular/router';
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
-  imports: [CardComponent, TableComponentComponent, AComponentComponent],
+  imports: [CardComponent, TableComponent, AComponentComponent],
 })
 export class UsersComponent implements OnInit {
   private useCase = inject(GetMembersUseCase);

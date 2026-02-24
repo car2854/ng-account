@@ -1,10 +1,10 @@
+import { TableComponent, TableInterface } from './../../../../../shared/components/table-component/table.component';
 import { Component, inject, signal, ViewChild } from '@angular/core';
 import { ModalHistoryComponent } from './component/modal-history/modal-history.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GetAccountUseCase } from '../../../../../core/use-cases/account/get-account.usecase';
 import { GetHistoriesUseCase } from '../../../../../core/use-cases/history/get-histories.usecase';
 import { AccountModel } from '../../../../../core/models/account-model';
-import { TableComponentComponent, TableInterface } from '../../../../../shared/components/table-component/table-component.component';
 import { Status } from '../../../../enum/status-enum';
 import { DropdownButtonComponentComponent, OptionsInterface } from '../../../../../shared/components/dropdown-button-component/dropdown-button-component.component';
 import { generateHistoriesPdf } from './pdf/histories_pdf';
@@ -31,7 +31,7 @@ import { AComponentComponent } from '../../../../../shared/components/a-componen
     ReactiveFormsModule,
     ModalHistoryComponent,
     LoadingComponent,
-    TableComponentComponent,
+    TableComponent,
     DropdownButtonComponentComponent,
     AComponentComponent
   ],
@@ -43,7 +43,6 @@ export class AccountTransactionsComponent {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private getAccountUseCase = inject(GetAccountUseCase);
-  private getHistoriesUseCase = inject(GetHistoriesUseCase);
 
   public account = signal<AccountModel | null>(null);
   public histories = signal<TableInterface>({
@@ -52,7 +51,6 @@ export class AccountTransactionsComponent {
   });
 
   public statusAccount = signal<Status>(Status.INITIAL);
-  public statusHistory = signal<Status>(Status.INITIAL);
   public options: OptionsInterface[] = [
     {
       description: 'Excel',
@@ -84,27 +82,16 @@ export class AccountTransactionsComponent {
         this.statusAccount.set(Status.ERROR);
       },
       next: (value: AccountModel) => {
+        console.log(value);
         this.statusAccount.set(Status.SUCCESS);
         this.account.set(value);
-      },
-    });
-  };
 
-  private getHistories = (id: number) => {
-    this.statusHistory.set(Status.LOADING);
-    this.getHistoriesUseCase.execute(id).subscribe({
-      error: (err) => {
-        errorHelpers(err);
-        this.statusHistory.set(Status.ERROR);
-      },
-      next: (value: HistoryModel[]) => {
         this.histories.update((prev) => {
           return {
             headers: prev.headers,
-            body: value.map((v) => [v.id, v.amount, v.date, v.description]),
+            body: value.histories.map((v) => [v.id, v.amount, v.date, v.description]),
           };
         });
-        this.statusHistory.set(Status.SUCCESS);
       },
     });
   };
@@ -117,7 +104,6 @@ export class AccountTransactionsComponent {
     }
 
     this.getAccount(id);
-    this.getHistories(id);
   }
 
   public openModal = () => {

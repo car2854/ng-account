@@ -1,4 +1,4 @@
-<app-modal-component
+<app-horizontal-modal-component
   title="Nuevo movimiento"
 >
   <div modal-body>
@@ -14,6 +14,17 @@
         placeholder="Date"
         formControlName="date"
       ></app-form-input>
+      <app-combo-box-component
+        title="Usuarios"
+        [options]="getComboBoxComponent() ?? []"
+        (idSelected)="onSelectedMemberId($event)"
+      >
+      </app-combo-box-component>
+      <app-table
+        [options]="options"
+        [table]="table()"
+        messageEmpty="No hay usuarios agregados"
+      ></app-table>
       <app-form-input
         type="text-area"
         label="Description"
@@ -27,4 +38,4 @@
       </app-button>
     </form>
   </div>
-</app-modal-component>
+</app-horizontal-modal-component>

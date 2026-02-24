@@ -9,7 +9,7 @@ type FormatType = 'mediumDate';
 export class DateFormatPipe implements PipeTransform {
   private datePipe = new DatePipe('en-US');
 
-  transform(date?: string | null, format: FormatType = 'mediumDate'): any {
+  transform(date?: Date | null, format: FormatType = 'mediumDate'): any {
     if (date == null) return '';
     try {
       return this.datePipe.transform(date, format);

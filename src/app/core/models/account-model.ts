@@ -11,5 +11,6 @@ export class AccountModel {
     public createdAt: Date,
     public isActive: boolean,
     public accountMembers: AccountMemberModel[],
+    public histories: HistoryModel[]
   ) {}
 }

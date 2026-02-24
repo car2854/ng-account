@@ -12,6 +12,7 @@ export interface ComboBoxInterface {
 })
 export class ComboBoxComponent {
   @Input({ required: true }) options: ComboBoxInterface[] = [];
+  @Input() title: string = '';
   @Output() idSelected = new EventEmitter<ComboBoxInterface>();
 
   public optionsFilter = signal<ComboBoxInterface[]>([]);

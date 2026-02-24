@@ -1,3 +1,4 @@
+import { TableComponent, TableInterface } from './../../../../../shared/components/table-component/table.component';
 import { OptionsInterface } from './../../../../../shared/components/dropdown-button-component/dropdown-button-component.component';
 import { Component, inject, signal, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +14,6 @@ import { CardComponent } from "../../../../../shared/components/card-component/c
 import { IsLoadingPipe } from '../../../../pipe/loading/is-loading.pipe';
 import { LoadingComponent } from "../../../../../shared/components/loading-component/loading.component";
 import { ComboBoxInterface, ComboBoxComponent } from '../../../../../shared/components/combo-box-component/combo-box';
-import { TableComponentComponent, TableInterface } from "../../../../../shared/components/table-component/table-component.component";
 import { ModalComponentComponent } from "../../../../../shared/components/modal-component/modal-component.component";
 import { ButtonComponent } from "../../../../../shared/components/button-component/button.component";
 import { CreateAccountUseCase } from '../../../../../core/use-cases/account/create-account.usecase';
@@ -30,7 +30,7 @@ import { DeleteAccountMemberUseCase } from '../../../../../core/use-cases/accoun
     IsLoadingPipe,
     LoadingComponent,
     ComboBoxComponent,
-    TableComponentComponent,
+    TableComponent,
   ],
 })
 export class AccountInfoComponent {

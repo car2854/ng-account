@@ -1,4 +1,7 @@
 <div class="combo-box">
+  @if (title.trim().length > 0) {
+    <p>{{title}}</p>
+  }
   <input placeholder="Buscar..." type="text" [value]="value()" (input)="onChange($event)">
   <div class="options">
     @for (option of optionsFilter(); track $index) {

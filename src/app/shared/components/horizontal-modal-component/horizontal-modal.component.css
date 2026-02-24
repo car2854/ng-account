@@ -1,0 +1,48 @@
+dialog {
+  margin: 0;
+  margin-left: auto;
+  width: 600px;
+  /* height: 200%; */
+  min-height: 100vb;
+  max-height: 100vb;
+  border: none;
+  padding: 0;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(100%);
+  background: white;
+}
+
+dialog[open] {
+  transform: translateX(0);
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.3s ease;
+}
+
+dialog[open]::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-body-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.title{
+  padding-inline: 20px;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}

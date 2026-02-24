@@ -2,8 +2,8 @@ import { Table, TableCell } from './../../../../../../../../node_modules/@types/
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { AccountModel } from '../../../../../../core/models/account-model';
-import { TableInterface } from '../../../../../../shared/components/table-component/table-component.component';
 import { TDocumentDefinitions } from 'pdfmake/interfaces';
+import { TableInterface } from '../../../../../../shared/components/table-component/table.component';
 pdfMake.vfs = pdfFonts.vfs;
 
 interface Props {

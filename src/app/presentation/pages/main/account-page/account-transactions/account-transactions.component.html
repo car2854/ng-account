@@ -46,6 +46,7 @@
 
   <app-modal-history-component
     [accountId]="account()!.id"
+    [members]="account()?.accountMembers"
     (onNewHistory)="onNewHistory($event)"
   ></app-modal-history-component>
 

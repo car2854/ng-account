@@ -3,6 +3,7 @@
   width: 100%;
   box-sizing: border-box;
   position: relative;
+  padding-bottom: 8px;
 }
 
 .combo-box input:placeholder-shown {
@@ -40,4 +41,8 @@
 .combo-box .options .option:hover{
   background-color: var(--text-background-hover);
   color: var(--text-hover);
+}
+
+.combo-box p{
+  padding-bottom: 8px;
 }

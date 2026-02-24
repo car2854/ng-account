@@ -1,5 +1,7 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ModalComponentComponent } from "../../../../../../../shared/components/modal-component/modal-component.component";
+import { OptionsInterface } from './../../../../../../../shared/components/dropdown-button-component/dropdown-button-component.component';
+import { TableComponent, TableInterface } from './../../../../../../../shared/components/table-component/table.component';
+import { ComboBoxInterface } from './../../../../../../../shared/components/combo-box-component/combo-box';
+import { Component, EventEmitter, inject, Input, OnInit, Output, ViewChild, signal } from '@angular/core';
 import { ButtonComponent } from "../../../../../../../shared/components/button-component/button.component";
 import { FormInputComponent } from "../../../../../../../shared/components/form-input-component/form-input.component";
 import { ɵInternalFormsSharedModule, ReactiveFormsModule } from "@angular/forms";
@@ -10,27 +12,58 @@ import { AccountForm } from '../../../../../../../core/entities/account-form';
 import { HistoryForm } from '../../../../../../../core/entities/history-form';
 import { HistoryModel } from '../../../../../../../core/models/history-model';
 import { HistoryFormBuilder } from '../../../account-info/history-form';
+import { HorizontalModalComponentComponent } from '../../../../../../../shared/components/horizontal-modal-component/horizontal-modal.component';
+import { ComboBoxComponent } from "../../../../../../../shared/components/combo-box-component/combo-box";
+import { AccountMemberModel } from '../../../../../../../core/models/account-member';
+import { id } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-modal-history-component',
   templateUrl: './modal-history.component.html',
   styleUrls: ['./modal-history.component.css'],
-  imports: [ModalComponentComponent, ButtonComponent, FormInputComponent, ɵInternalFormsSharedModule, ReactiveFormsModule],
+  imports: [
+    HorizontalModalComponentComponent,
+    ButtonComponent,
+    FormInputComponent,
+    ɵInternalFormsSharedModule,
+    ReactiveFormsModule,
+    ComboBoxComponent,
+    TableComponent,
+  ],
 })
 export class ModalHistoryComponent implements OnInit {
-  @ViewChild(ModalComponentComponent) modal!: ModalComponentComponent;
-  @Input({required: true}) accountId!: number;
+  @ViewChild(HorizontalModalComponentComponent) modal!: HorizontalModalComponentComponent;
+  @Input({ required: true }) accountId!: number;
+  @Input({ required: true }) members?: AccountMemberModel[] = [];
   @Output() onNewHistory = new EventEmitter<HistoryModel>();
   private historyFB = inject(HistoryFormBuilder);
   private useCase = inject(CreateHistoryUseCase);
   public form = this.historyFB.build();
+
+  public options: OptionsInterface[] = [
+    {
+      icon: 'Remove',
+      description: 'Remove',
+      onClick: (id) => {
+        this.table.update((prev) => {
+          return {
+            headers: this.table().headers,
+            body: this.table().body.filter((b) => b[0] != id)
+          }
+        })
+      },
+    },
+  ];
+  public table = signal<TableInterface>({
+    headers: ['Id', 'Name'],
+    body: [],
+  });
 
   constructor() {}
 
   ngOnInit() {}
 
   public save = () => {
-
     if (this.form.invalid) return;
     const dto = mapFormToDto<Omit<HistoryForm, 'accountId'>>(this.form);
     this.useCase
@@ -48,10 +81,34 @@ export class ModalHistoryComponent implements OnInit {
           this.modal.onCloseModal();
         },
       });
-
   };
 
   public openModal = () => {
     this.modal.onOpenModal();
+  };
+
+  public getComboBoxComponent = () => {
+    return this.members?.map((m) => {
+      return {
+        id: m.member.id,
+        name: m.member.name,
+      };
+    });
+  };
+
+  public onSelectedMemberId = ({id, name}: ComboBoxInterface) => {
+    if (this.table().body.some((b) => b[0] == id)) return;
+    this.table.update((prev) => {
+      return {
+        headers: prev.headers,
+        body: [
+          ...prev.body,
+          [
+            id,
+            name
+          ]
+        ]
+      }
+    })
   };
 }

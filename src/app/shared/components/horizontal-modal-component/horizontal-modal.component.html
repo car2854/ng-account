@@ -1,0 +1,13 @@
+<dialog #myModal>
+  <div class="modal-content">
+    <div class="title">
+      <h1>{{title}}</h1>
+      <button (click)="onCloseModal()">
+        <lucide-angular [img]="XIcon" [size]="32" class="empty-icon"></lucide-angular>
+      </button>
+    </div>
+    <div class="modal-body-wrapper">
+      <ng-content select="[modal-body]"></ng-content>
+    </div>
+  </div>
+</dialog>
