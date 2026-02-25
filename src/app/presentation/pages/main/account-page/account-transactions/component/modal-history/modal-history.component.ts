@@ -16,6 +16,7 @@ import { HorizontalModalComponentComponent } from '../../../../../../../shared/c
 import { ComboBoxComponent } from "../../../../../../../shared/components/combo-box-component/combo-box";
 import { AccountMemberModel } from '../../../../../../../core/models/account-member';
 import { id } from '@swimlane/ngx-charts';
+import { MemberForm } from '../../../../../../../core/entities/member-form';
 
 @Component({
   selector: 'app-modal-history-component',
@@ -48,9 +49,9 @@ export class ModalHistoryComponent implements OnInit {
         this.table.update((prev) => {
           return {
             headers: this.table().headers,
-            body: this.table().body.filter((b) => b[0] != id)
-          }
-        })
+            body: this.table().body.filter((b) => b[0] != id),
+          };
+        });
       },
     },
   ];
@@ -65,12 +66,18 @@ export class ModalHistoryComponent implements OnInit {
 
   public save = () => {
     if (this.form.invalid) return;
-    const dto = mapFormToDto<Omit<HistoryForm, 'accountId'>>(this.form);
+    const dto = mapFormToDto<Omit<HistoryForm, 'accountId' | 'members'>>(this.form);
     this.useCase
       .execute({
         ...dto,
         amount: Number(dto.amount),
         accountId: this.accountId,
+        members: this.table().body.map((t) => {
+          return {
+            id: t[0],
+            name: t[1],
+          } as MemberForm;
+        }),
       })
       .subscribe({
         error: (err) => {
@@ -87,28 +94,41 @@ export class ModalHistoryComponent implements OnInit {
     this.modal.onOpenModal();
   };
 
-  public getComboBoxComponent = () => {
-    return this.members?.map((m) => {
+  public getComboBoxComponent = (): ComboBoxInterface[] => {
+    const data = this.members?.map((m) => {
       return {
         id: m.member.id,
         name: m.member.name,
       };
-    });
+    }) ?? [];
+
+    return [{
+      id: 0,
+      name: 'Todos'
+    }, ...data];
   };
 
-  public onSelectedMemberId = ({id, name}: ComboBoxInterface) => {
+  public onSelectedMemberId = ({ id, name }: ComboBoxInterface) => {
     if (this.table().body.some((b) => b[0] == id)) return;
+    if (id == 0){
+      this.table.update((prev) => {
+        return {
+          headers: prev.headers,
+          body: this.members?.map((m) => {
+            return [
+              m.member.id,
+              m.member.name
+            ]
+          }) ?? []
+        }
+      })
+      return;
+    }
     this.table.update((prev) => {
       return {
         headers: prev.headers,
-        body: [
-          ...prev.body,
-          [
-            id,
-            name
-          ]
-        ]
-      }
-    })
+        body: [...prev.body, [id, name]],
+      };
+    });
   };
 }

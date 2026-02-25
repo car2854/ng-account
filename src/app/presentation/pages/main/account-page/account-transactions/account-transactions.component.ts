@@ -82,10 +82,8 @@ export class AccountTransactionsComponent {
         this.statusAccount.set(Status.ERROR);
       },
       next: (value: AccountModel) => {
-        console.log(value);
         this.statusAccount.set(Status.SUCCESS);
         this.account.set(value);
-
         this.histories.update((prev) => {
           return {
             headers: prev.headers,

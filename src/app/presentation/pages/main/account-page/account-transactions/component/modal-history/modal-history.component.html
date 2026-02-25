@@ -16,7 +16,7 @@
       ></app-form-input>
       <app-combo-box-component
         title="Usuarios"
-        [options]="getComboBoxComponent() ?? []"
+        [options]="getComboBoxComponent()"
         (idSelected)="onSelectedMemberId($event)"
       >
       </app-combo-box-component>

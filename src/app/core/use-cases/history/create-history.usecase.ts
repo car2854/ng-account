@@ -3,6 +3,7 @@ import { HistoryService } from "../../../infrastructure/services/history/history
 import { HistoryForm } from "../../entities/history-form";
 import { Observable } from "rxjs";
 import { HistoryModel } from "../../models/history-model";
+import { MemberForm } from "../../entities/member-form";
 
 @Injectable({
   providedIn: 'root'
