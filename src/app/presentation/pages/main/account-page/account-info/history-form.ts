@@ -9,10 +9,10 @@ import { HistoryForm } from "../../../../../core/entities/history-form";
 })
 export class HistoryFormBuilder extends BaseFormBuilders{
   override build(): FormGroup {
-    return this.fb.group<FormBuilderControls<Omit<HistoryForm, 'accountId'>>>({
+    return this.fb.group<FormBuilderControls<Omit<HistoryForm, 'accountId' | 'members'>>>({
       amount: [0, [Validators.required]],
       date: [new Date(), Validators.required],
-      description: ['', Validators.required]
+      description: ['', Validators.required],
     });
   }
 }

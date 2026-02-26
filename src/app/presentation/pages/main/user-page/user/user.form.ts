@@ -7,8 +7,8 @@ import { Injectable } from "@angular/core";
 @Injectable({providedIn: 'root'})
 export class UserFormBuilder extends BaseFormBuilders{
   override build(): FormGroup {
-    return this.fb.group<FormBuilderControls<MemberForm>>({
-      name: ['', [Validators.required]]
+    return this.fb.group<FormBuilderControls<Omit<MemberForm, 'id'>>>({
+      name: ['', [Validators.required]],
     });
   }
 
